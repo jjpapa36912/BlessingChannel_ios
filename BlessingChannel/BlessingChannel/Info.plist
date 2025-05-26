@@ -10,6 +10,22 @@
     <string>1.0</string>
     <key>CFBundleVersion</key>
     <string>1</string>
+
+    <!-- ✅ 추가 시작 -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.314078962985-bcg7vno6uenkgcskqh1251ts9u7ene8s</string> <!-- ← 클라이언트 ID 일부 -->
+            </array>
+        </dict>
+    </array>
+   
+    <key>GIDClientID</key>
+    <string>314078962985-bcg7vno6uenkgcskqh1251ts9u7ene8s.apps.googleusercontent.com</string>
+    <!-- ✅ 추가 끝 -->
+
     <key>UIApplicationSceneManifest</key>
     <dict>
         <key>UIApplicationSupportsMultipleScenes</key>
@@ -27,6 +43,7 @@
     </dict>
 </dict>
 </plist>
+
 
 
 
