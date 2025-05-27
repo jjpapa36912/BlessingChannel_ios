@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import KakaoSDKAuth
 
 @main
 struct BlessingChannelApp: App {
@@ -17,6 +17,12 @@ struct BlessingChannelApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
+                .onOpenURL { url in
+                    // ✅ Kakao 로그인 URL 처리
+                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ = AuthController.handleOpenUrl(url: url)
+                    }
+                }
         }
     }
 }

@@ -1,0 +1,6 @@
+framework module Pods_BlessingChannel {
+  umbrella header "Pods-BlessingChannel-umbrella.h"
+
+  export *
+  module * { export * }
+}
