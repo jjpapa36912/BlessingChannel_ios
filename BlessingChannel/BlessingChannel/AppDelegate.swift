@@ -11,30 +11,47 @@ import UIKit
 import GoogleSignIn
 import KakaoSDKCommon
 import KakaoSDKAuth
+import NaverThirdPartyLogin
+import KakaoSDKAuth
+import NaverThirdPartyLogin
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
-    // ✅ 앱이 외부 URL을 열 때 Kakao 또는 Google 로그인 처리
     func application(
         _ application: UIApplication,
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
-        // ✅ Kakao 로그인 핸들링
+        // Kakao 로그인
         if AuthApi.isKakaoTalkLoginUrl(url) {
             return AuthController.handleOpenUrl(url: url)
         }
 
-        // ✅ Google 로그인 핸들링
+        // ✅ Naver 로그인
+        NaverThirdPartyLoginConnection.getSharedInstance().receiveAccessToken(url)
+
+
+        // Google 로그인
         return GIDSignIn.sharedInstance.handle(url)
     }
 
-    // ✅ 앱 시작 시 Kakao SDK 초기화
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        KakaoSDK.initSDK(appKey: "64eb2c6693e4feffd396d4f51eaa6590") // ← 네이티브 앱 키로 교체
+        // Kakao 초기화
+        KakaoSDK.initSDK(appKey: "64eb2c6693e4feffd396d4f51eaa6590")
+
+        // Naver 초기화
+        let instance = NaverThirdPartyLoginConnection.getSharedInstance()
+        instance?.isNaverAppOauthEnable = true
+        instance?.isInAppOauthEnable = true
+        instance?.isOnlyPortraitSupportedInIphone() // ✅ 함수 호출로 수정
+        instance?.serviceUrlScheme = "com.blessing.channel.BlessingChannel"
+        instance?.consumerKey = "loHCwroBGxHcKCmHERN2"
+        instance?.consumerSecret = "Sv1_xuZpwx"
+        instance?.appName = "BlessingChannel"
+
         return true
     }
 }

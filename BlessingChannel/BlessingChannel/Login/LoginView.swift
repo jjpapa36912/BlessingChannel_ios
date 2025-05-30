@@ -1,10 +1,12 @@
 import Foundation
 import SwiftUI
 import GoogleSignIn
-import GoogleSignInSwift
+//import GoogleSignInSwift
 import AuthenticationServices
 import KakaoSDKUser
 import KakaoSDKAuth
+import NaverThirdPartyLogin
+
 
 struct LoginView: View {
     var body: some View {
@@ -140,6 +142,8 @@ struct LoginView: View {
 
     // MARK: - Naver (미구현)
     func handleNaverLogin() {
-        print("🟢 네이버 로그인 실행 (TODO)")
+        guard let instance = NaverThirdPartyLoginConnection.getSharedInstance() else { return }
+        instance.delegate = NaverLoginDelegate()
+        instance.requestThirdPartyLogin()
     }
 }

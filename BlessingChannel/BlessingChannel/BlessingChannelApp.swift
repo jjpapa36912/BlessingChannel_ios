@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 import KakaoSDKAuth
+import NaverThirdPartyLogin // ✅ 네이버 SDK 임포트 추가
+
 
 @main
 struct BlessingChannelApp: App {
@@ -15,14 +17,20 @@ struct BlessingChannelApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        WindowGroup {
-            LoginView()
-                .onOpenURL { url in
-                    // ✅ Kakao 로그인 URL 처리
-                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                        _ = AuthController.handleOpenUrl(url: url)
+            WindowGroup {
+                LoginView()
+                    .onOpenURL { url in
+                        // ✅ Kakao 로그인 처리
+                        if AuthApi.isKakaoTalkLoginUrl(url) {
+                            _ = AuthController.handleOpenUrl(url: url)
+                        }
+
+                        // ✅ Naver 로그인 처리
+                        // ✅ Naver 로그인 처리 (URL 판단 없이 바로 시도)
+                                            _ = NaverThirdPartyLoginConnection
+                                                .getSharedInstance()
+                                                .receiveAccessToken(url)
                     }
-                }
+            }
         }
-    }
 }
