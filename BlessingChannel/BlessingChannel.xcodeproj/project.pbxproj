@@ -10,7 +10,6 @@
 		0A02C11E2DE94D1B00A03F04 /* NaverLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A02C11D2DE94D1B00A03F04 /* NaverLoginDelegate.swift */; };
 		0A0E958B2DE4A90B007DD546 /* CustomLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E958A2DE4A90B007DD546 /* CustomLoginButton.swift */; };
 		0A0E95902DE5F232007DD546 /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E958F2DE5F232007DD546 /* KakaoLoginView.swift */; };
-		0A26F4052DE4A32000F1324B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 0A26F4042DE4A32000F1324B /* GoogleSignIn */; };
 		0A34C8722DE9572400E6CFAD /* KakaoSDKUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A34C8712DE9572400E6CFAD /* KakaoSDKUser.framework */; };
 		0A34C8762DE9573200E6CFAD /* KakaoSDKCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A34C8752DE9573200E6CFAD /* KakaoSDKCommon.framework */; };
 		0A34C8782DE9573500E6CFAD /* KakaoSDKUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A34C8772DE9573500E6CFAD /* KakaoSDKUser.framework */; };
@@ -98,7 +97,6 @@
 				0A34C8782DE9573500E6CFAD /* KakaoSDKUser.framework in Frameworks */,
 				0A34C8762DE9573200E6CFAD /* KakaoSDKCommon.framework in Frameworks */,
 				0A34C8722DE9572400E6CFAD /* KakaoSDKUser.framework in Frameworks */,
-				0A26F4052DE4A32000F1324B /* GoogleSignIn in Frameworks */,
 				2203E4A7A7C847AB92516E16 /* Pods_BlessingChannel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,7 +261,6 @@
 				0AA77BD32DE3416A0014B7AA /* Frameworks */,
 				0AA77BD42DE3416A0014B7AA /* Resources */,
 				DD04B28235E01CFDADE9469B /* [CP] Embed Pods Frameworks */,
-				FFEE3801EECF4BFC32372245 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -271,7 +268,6 @@
 			);
 			name = BlessingChannel;
 			packageProductDependencies = (
-				0A26F4042DE4A32000F1324B /* GoogleSignIn */,
 			);
 			productName = BlessingChannel;
 			productReference = 0AA77BD62DE3416A0014B7AA /* BlessingChannel.app */;
@@ -305,7 +301,6 @@
 				0AA77BF32DE3416C0014B7AA /* Frameworks */,
 				0AA77BF42DE3416C0014B7AA /* Resources */,
 				8444021939FA3F2EF26B019E /* [CP] Embed Pods Frameworks */,
-				DBCF14C52C9CFCEEFB995329 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -350,7 +345,6 @@
 			);
 			mainGroup = 0AA77BCD2DE3416A0014B7AA;
 			packageReferences = (
-				0A561D452DE49FF60064CE28 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 0AA77BD72DE3416A0014B7AA /* Products */;
 			projectDirPath = "";
@@ -442,30 +436,17 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DBCF14C52C9CFCEEFB995329 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DD04B28235E01CFDADE9469B /* [CP] Embed Pods Frameworks */ = {
@@ -476,9 +457,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -505,23 +490,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FFEE3801EECF4BFC32372245 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -892,25 +860,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		0A561D452DE49FF60064CE28 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0A26F4042DE4A32000F1324B /* GoogleSignIn */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A561D452DE49FF60064CE28 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignIn;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0AA77BCE2DE3416A0014B7AA /* Project object */;
 }

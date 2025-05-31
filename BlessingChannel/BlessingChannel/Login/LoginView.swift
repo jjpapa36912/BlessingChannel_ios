@@ -48,26 +48,53 @@ struct LoginView: View {
 
     // MARK: - Google 로그인
     func handleGoogleSignIn() {
-        guard let rootVC = UIApplication.shared.connectedScenes
-            .compactMap({ ($0 as? UIWindowScene)?.keyWindow?.rootViewController }).first else { return }
+        let config = GIDConfiguration(clientID: "314078962985-bcg7vno6uenkgcskqh1251ts9u7ene8s.apps.googleusercontent.com")
 
-        GIDSignIn.sharedInstance.signIn(withPresenting: rootVC) { result, error in
+        guard let rootVC = UIApplication.shared.connectedScenes
+            .compactMap({ ($0 as? UIWindowScene)?.keyWindow?.rootViewController }).first else {
+            print("❌ rootViewController 가져오기 실패")
+            return
+        }
+
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: rootVC) { user, error in
             if let error = error {
                 print("❌ 구글 로그인 실패: \(error.localizedDescription)")
                 return
             }
 
-            guard let profile = result?.user.profile else {
-                print("❌ 사용자 프로필 정보 없음")
+            guard let user = user else {
+                print("❌ 로그인 결과 없음")
                 return
             }
 
-            let name = profile.name ?? "이름 없음"
-            let email = profile.email ?? "이메일 없음"
+            let name = user.profile?.name ?? "이름 없음"
+            let email = user.profile?.email ?? "이메일 없음"
             print("✅ 구글 로그인 성공 → \(name), \(email)")
 
             navigateToMain(user: User(name: name))
         }
+    }
+
+//        guard let rootVC = UIApplication.shared.connectedScenes
+//            .compactMap({ ($0 as? UIWindowScene)?.keyWindow?.rootViewController }).first else { return }
+//
+//        GIDSignIn.sharedInstance.signIn(withPresenting: rootVC) { result, error in
+//            if let error = error {
+//                print("❌ 구글 로그인 실패: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            guard let profile = result?.user.profile else {
+//                print("❌ 사용자 프로필 정보 없음")
+//                return
+//            }
+//
+//            let name = profile.name ?? "이름 없음"
+//            let email = profile.email ?? "이메일 없음"
+//            print("✅ 구글 로그인 성공 → \(name), \(email)")
+//
+//            navigateToMain(user: User(name: name))
+//        }
     }
 
     // MARK: - Kakao 로그인
@@ -146,4 +173,4 @@ struct LoginView: View {
         instance.delegate = NaverLoginDelegate()
         instance.requestThirdPartyLogin()
     }
-}
+

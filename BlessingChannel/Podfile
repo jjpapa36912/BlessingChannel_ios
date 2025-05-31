@@ -5,9 +5,7 @@ target 'BlessingChannel' do
   pod 'KakaoSDKCommon'
   pod 'KakaoSDKAuth'
   pod 'KakaoSDKUser'
-  pod 'GoogleSignIn'
-  pod 'GTMAppAuth'
-  pod 'GTMSessionFetcher'
+  pod 'GoogleSignIn', '~>6.2.0'
   pod 'naveridlogin-sdk-ios'
 
   target 'BlessingChannelTests' do
