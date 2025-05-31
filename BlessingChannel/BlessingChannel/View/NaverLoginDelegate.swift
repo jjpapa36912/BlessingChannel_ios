@@ -8,6 +8,7 @@
 import Foundation
 
 import NaverThirdPartyLogin
+import SwiftUI
 
 class NaverLoginDelegate: NSObject, NaverThirdPartyLoginConnectionDelegate {
     // ✅ 로그인 성공 (최초 인증 코드 → Access Token 발급)
@@ -15,10 +16,53 @@ class NaverLoginDelegate: NSObject, NaverThirdPartyLoginConnectionDelegate {
         if let token = NaverThirdPartyLoginConnection.getSharedInstance()?.accessToken {
             print("✅ Naver 토큰 발급 성공: \(token)")
             // TODO: 서버 전송 or 사용자 정보 요청
+            fetchUserInfo(accessToken: token)
         } else {
             print("❌ Naver 토큰 없음")
         }
     }
+    
+    // ✅ 사용자 정보 요청
+       private func fetchUserInfo(accessToken: String) {
+           guard let url = URL(string: "https://openapi.naver.com/v1/nid/me") else { return }
+
+           var request = URLRequest(url: url)
+           request.httpMethod = "GET"
+           request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+           URLSession.shared.dataTask(with: request) { data, response, error in
+               if let error = error {
+                   print("❌ 사용자 정보 요청 실패: \(error.localizedDescription)")
+                   return
+               }
+
+               guard let data = data else {
+                   print("❌ 응답 데이터 없음")
+                   return
+               }
+
+               do {
+                   let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                   print("📦 네이버 응답 전체: \(json ?? [:])") // ✅ 전체 출력 추가
+
+                   if let response = json?["response"] as? [String: Any] {
+                       let name = response["nickname"] as? String
+                           ?? response["name"] as? String
+                           ?? "이름 없음"
+
+                       print("✅ [NAVER] 사용자 이름: \(name)")
+                       DispatchQueue.main.async {
+                           self.navigateToMain(user: User(name: name))
+                       }
+                   } else {
+                       print("❌ JSON 파싱 실패: 'response' 키 없음")
+                   }
+               } catch {
+                   print("❌ JSON 디코딩 에러: \(error.localizedDescription)")
+               }
+           }.resume()
+       }
+
 
     // ✅ 로그인 실패
     func oauth20Connection(_ connection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
@@ -33,5 +77,22 @@ class NaverLoginDelegate: NSObject, NaverThirdPartyLoginConnectionDelegate {
     // ✅ 토큰 리프레시 성공 시 호출
     func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
         print("🔄 Naver 토큰 리프레시 완료")
+        if let token = NaverThirdPartyLoginConnection.getSharedInstance()?.accessToken {
+                print("🔐 리프레시된 accessToken: \(token)")
+                fetchUserInfo(accessToken: token) // ✅ 여기에 추가해야 화면이 바뀜
+            } else {
+                print("❌ 리프레시 후 accessToken 없음")
+            }
     }
+    // ✅ 메인화면 이동
+        private func navigateToMain(user: User) {
+            let mainView = MainScreenView(user: user)
+            let mainVC = UIHostingController(rootView: mainView)
+
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                window.rootViewController = mainVC
+                window.makeKeyAndVisible()
+            }
+        }
 }

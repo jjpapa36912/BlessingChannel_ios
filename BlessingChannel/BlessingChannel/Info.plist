@@ -45,7 +45,7 @@
             <dict>
                 <key>CFBundleURLSchemes</key>
                 <array>
-                    <string>com.blessing.channel</string> <!-- ← Naver 앱 등록 시 발급받은 Client ID 기반 -->
+                    <string>naverloHCwroBGxHcKCmHERN2</string> <!-- ← Naver 앱 등록 시 발급받은 Client ID 기반 -->
                 </array>
             </dict>
     </array>

@@ -9,6 +9,15 @@ import NaverThirdPartyLogin
 
 
 struct LoginView: View {
+    private let naverDelegate = NaverLoginDelegate() // ✅ 그냥 속성으로 유지 (retain만 목적이면 충분)
+
+    // MARK: - Naver (미구현)
+    func handleNaverLogin() {
+        guard let instance = NaverThirdPartyLoginConnection.getSharedInstance() else { return }
+           instance.delegate = naverDelegate
+           instance.requestThirdPartyLogin()
+    }
+
     var body: some View {
         ZStack {
             Color(hex: "#FFF5BC").ignoresSafeArea()
@@ -167,10 +176,6 @@ struct LoginView: View {
         }
     }
 
-    // MARK: - Naver (미구현)
-    func handleNaverLogin() {
-        guard let instance = NaverThirdPartyLoginConnection.getSharedInstance() else { return }
-        instance.delegate = NaverLoginDelegate()
-        instance.requestThirdPartyLogin()
-    }
+    
+    
 

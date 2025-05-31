@@ -47,7 +47,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         instance?.isNaverAppOauthEnable = true
         instance?.isInAppOauthEnable = true
         instance?.isOnlyPortraitSupportedInIphone() // ✅ 함수 호출로 수정
-        instance?.serviceUrlScheme = "com.blessing.channel.BlessingChannel"
+        instance?.serviceUrlScheme = "naverloHCwroBGxHcKCmHERN2"
         instance?.consumerKey = "loHCwroBGxHcKCmHERN2"
         instance?.consumerSecret = "Sv1_xuZpwx"
         instance?.appName = "BlessingChannel"
