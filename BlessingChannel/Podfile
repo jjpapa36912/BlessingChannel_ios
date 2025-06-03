@@ -7,6 +7,7 @@ target 'BlessingChannel' do
   pod 'KakaoSDKUser'
   pod 'GoogleSignIn', '~>6.2.0'
   pod 'naveridlogin-sdk-ios'
+  pod 'Google-Mobile-Ads-SDK'
 
   target 'BlessingChannelTests' do
     inherit! :search_paths

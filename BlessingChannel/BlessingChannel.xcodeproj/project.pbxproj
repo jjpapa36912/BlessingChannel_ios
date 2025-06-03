@@ -19,6 +19,9 @@
 		0A44E04E2DE4A1F700E240CA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A44E04D2DE4A1F700E240CA /* MainScreenView.swift */; };
 		0A44E0502DE4A21D00E240CA /* DonationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A44E04F2DE4A21D00E240CA /* DonationProgressView.swift */; };
 		0A44E0522DE4A22E00E240CA /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A44E0512DE4A22E00E240CA /* NavigationBarView.swift */; };
+		0A6907972DEC8378003F748C /* RewardedAdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6907962DEC8378003F748C /* RewardedAdManager.swift */; };
+		0A6907992DEC839F003F748C /* BannerAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6907982DEC839F003F748C /* BannerAdView.swift */; };
+		0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69079A2DEE86ED003F748C /* MyPageView.swift */; };
 		0AA77BDE2DE3416A0014B7AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77BDD2DE3416A0014B7AA /* ViewController.swift */; };
 		0AA77BE32DE3416C0014B7AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AA77BE22DE3416C0014B7AA /* Assets.xcassets */; };
 		0AA77BE62DE3416C0014B7AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA77BE42DE3416C0014B7AA /* LaunchScreen.storyboard */; };
@@ -65,6 +68,9 @@
 		0A44E04D2DE4A1F700E240CA /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		0A44E04F2DE4A21D00E240CA /* DonationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationProgressView.swift; sourceTree = "<group>"; };
 		0A44E0512DE4A22E00E240CA /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		0A6907962DEC8378003F748C /* RewardedAdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdManager.swift; sourceTree = "<group>"; };
+		0A6907982DEC839F003F748C /* BannerAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdView.swift; sourceTree = "<group>"; };
+		0A69079A2DEE86ED003F748C /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		0AA77BD62DE3416A0014B7AA /* BlessingChannel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlessingChannel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA77BDD2DE3416A0014B7AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0AA77BE22DE3416C0014B7AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -143,8 +149,18 @@
 				0A44E0512DE4A22E00E240CA /* NavigationBarView.swift */,
 				0A0E958F2DE5F232007DD546 /* KakaoLoginView.swift */,
 				0A02C11D2DE94D1B00A03F04 /* NaverLoginDelegate.swift */,
+				0A69079A2DEE86ED003F748C /* MyPageView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0A6907952DEC8367003F748C /* Ad */ = {
+			isa = PBXGroup;
+			children = (
+				0A6907962DEC8378003F748C /* RewardedAdManager.swift */,
+				0A6907982DEC839F003F748C /* BannerAdView.swift */,
+			);
+			path = Ad;
 			sourceTree = "<group>";
 		};
 		0AA77BCD2DE3416A0014B7AA = {
@@ -172,6 +188,7 @@
 		0AA77BD82DE3416A0014B7AA /* BlessingChannel */ = {
 			isa = PBXGroup;
 			children = (
+				0A6907952DEC8367003F748C /* Ad */,
 				0A0E958C2DE4A926007DD546 /* ViewComponents */,
 				0A44E04C2DE4A1EC00E240CA /* View */,
 				0A44E0492DE4A1BE00E240CA /* Model */,
@@ -261,14 +278,13 @@
 				0AA77BD32DE3416A0014B7AA /* Frameworks */,
 				0AA77BD42DE3416A0014B7AA /* Resources */,
 				DD04B28235E01CFDADE9469B /* [CP] Embed Pods Frameworks */,
+				FBF140699237CC23DDCEB891 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = BlessingChannel;
-			packageProductDependencies = (
-			);
 			productName = BlessingChannel;
 			productReference = 0AA77BD62DE3416A0014B7AA /* BlessingChannel.app */;
 			productType = "com.apple.product-type.application";
@@ -301,6 +317,7 @@
 				0AA77BF32DE3416C0014B7AA /* Frameworks */,
 				0AA77BF42DE3416C0014B7AA /* Resources */,
 				8444021939FA3F2EF26B019E /* [CP] Embed Pods Frameworks */,
+				E7E9C372D8369000945EF065 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -344,8 +361,6 @@
 				Base,
 			);
 			mainGroup = 0AA77BCD2DE3416A0014B7AA;
-			packageReferences = (
-			);
 			productRefGroup = 0AA77BD72DE3416A0014B7AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -492,6 +507,48 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E7E9C372D8369000945EF065 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBF140699237CC23DDCEB891 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -501,9 +558,12 @@
 			files = (
 				0AA77BDE2DE3416A0014B7AA /* ViewController.swift in Sources */,
 				0A44E0502DE4A21D00E240CA /* DonationProgressView.swift in Sources */,
+				0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */,
 				0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */,
+				0A6907992DEC839F003F748C /* BannerAdView.swift in Sources */,
 				0A44E04E2DE4A1F700E240CA /* MainScreenView.swift in Sources */,
 				0A44E04B2DE4A1CD00E240CA /* User.swift in Sources */,
+				0A6907972DEC8378003F748C /* RewardedAdManager.swift in Sources */,
 				0AA77C0B2DE342150014B7AA /* LoginView.swift in Sources */,
 				0A44E0482DE4A13300E240CA /* AppDelegate.swift in Sources */,
 				0AA77C102DE342590014B7AA /* BlessingChannelApp.swift in Sources */,
