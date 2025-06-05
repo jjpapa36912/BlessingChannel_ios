@@ -46,8 +46,6 @@ struct MyPageView: View {
             // 🔹 포인트 및 누적 수익
             Text("현재 포인트: \(point)P")
                 .font(.subheadline)
-            Text("누적 수익: \(donation)원")
-                .font(.subheadline)
             
             // 🔹 쿠폰함 열기 버튼
             Button("쿠폰함 열기") {
@@ -63,9 +61,10 @@ struct MyPageView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("🏆 랭킹 보드")
                     .fontWeight(.bold)
-                Text("1위 - 사용자1: 250P")
-                Text("2위 - 나: 200P")
-                Text("3위 - 사용자2: 150P")
+                ForEach(topUsers.indices, id: \.self) { idx in
+                    let user = topUsers[idx]
+                    Text("\(idx + 1)위 - \(user.name): \(user.point)P")
+                }
             }
             .padding(.top)
             
@@ -123,6 +122,7 @@ struct MyPageView: View {
             fetchRedeemHistory(userId: user.name) { history in
                 self.redeemHistory = history
             }
+            fetchTopUsers() // 🔥 랭킹 보드 API 호출
         }
     }
     
@@ -151,4 +151,20 @@ struct MyPageView: View {
             DispatchQueue.main.async { completion(jsonArray) }
         }.resume()
     }
+    
+    @State private var topUsers: [RankedUser] = []
+
+    func fetchTopUsers() {
+        guard let url = URL(string: "\(API.baseURL)/api/users/rank/top3") else { return }
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data,
+                  let decoded = try? JSONDecoder().decode([RankedUser].self, from: data) else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.topUsers = decoded
+            }
+        }.resume()
+    }
+
 }

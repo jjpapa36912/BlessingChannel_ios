@@ -26,7 +26,7 @@ class RewardedAdManager: NSObject, FullScreenContentDelegate, ObservableObject {
         }()
         
         RewardedAd.load(
-            withAdUnitID: adUnitID,          // ✅ 적용된 광고 ID 사용
+            with: adUnitID,          // ✅ 적용된 광고 ID 사용
             request: request,
             completionHandler: { ad, error in
                 if let error = error {

@@ -31,6 +31,7 @@
 		0AA77C0B2DE342150014B7AA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0A2DE342150014B7AA /* LoginView.swift */; };
 		0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0D2DE342420014B7AA /* Color+Extension.swift */; };
 		0AA77C102DE342590014B7AA /* BlessingChannelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */; };
+		0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */; };
 		2203E4A7A7C847AB92516E16 /* Pods_BlessingChannel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B89553D7AEE625695218B666 /* Pods_BlessingChannel.framework */; };
 		225816B3296EE350BCDB4A6D /* Pods_BlessingChannelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6411A980EC1A18BFF05CB /* Pods_BlessingChannelTests.framework */; };
 		D3F61DD3C1FE658AA9357CC2 /* Pods_BlessingChannel_BlessingChannelUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541D8C8C9690C5D0037C2C12 /* Pods_BlessingChannel_BlessingChannelUITests.framework */; };
@@ -84,6 +85,7 @@
 		0AA77C0A2DE342150014B7AA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0AA77C0D2DE342420014B7AA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlessingChannelApp.swift; sourceTree = "<group>"; };
+		0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedUser.swift; sourceTree = "<group>"; };
 		3849A8776BD76518E1EFF522 /* Pods-BlessingChannel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlessingChannel.debug.xcconfig"; path = "Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel.debug.xcconfig"; sourceTree = "<group>"; };
 		541D8C8C9690C5D0037C2C12 /* Pods_BlessingChannel_BlessingChannelUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlessingChannel_BlessingChannelUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		955ECBDAB991940BD90BD391 /* Pods-BlessingChannelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlessingChannelTests.debug.xcconfig"; path = "Target Support Files/Pods-BlessingChannelTests/Pods-BlessingChannelTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				0A44E04A2DE4A1CD00E240CA /* User.swift */,
+				0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				0A0E95902DE5F232007DD546 /* KakaoLoginView.swift in Sources */,
 				0A44E0522DE4A22E00E240CA /* NavigationBarView.swift in Sources */,
 				0A02C11E2DE94D1B00A03F04 /* NaverLoginDelegate.swift in Sources */,
+				0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
