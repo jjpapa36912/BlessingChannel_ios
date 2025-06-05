@@ -52,6 +52,16 @@
             </dict>
         </dict>
     </dict>
+    
+    <key>CFBundleIcons</key>
+    <dict>
+        <key>CFBundlePrimaryIcon</key>
+        <dict>
+            <key>CFBundleIconName</key>
+            <string>AppIcon</string>
+        </dict>
+    </dict>
+
 
     <!-- ✅ URL 스킴 (Google + Kakao) -->
     <key>CFBundleURLTypes</key>
