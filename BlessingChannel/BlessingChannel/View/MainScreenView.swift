@@ -187,7 +187,7 @@ struct MainScreenView: View {
 
     
     func reportRewardedAdWatched() {
-        guard let url = URL(string: "\(API.baseURL)/api/users/\(user.name)/reward?amount=30&adType=rewarded") else {
+        guard let url = URL(string: "\(API.baseURL)/api/users/\(user.name)/reward?amount=20&adType=rewarded") else {
             print("❌ 보상형 광고 서버 URL 생성 실패")
             return
         }
