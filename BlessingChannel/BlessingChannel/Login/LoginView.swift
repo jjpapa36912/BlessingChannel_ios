@@ -32,24 +32,24 @@ struct LoginView: View {
                 CustomLoginButton(title: "카카오 로그인", action: handleKakaoLogin)
                 CustomLoginButton(title: "네이버 로그인", action: handleNaverLogin)
 
-                SignInWithAppleButton(
-                    .signIn,
-                    onRequest: { request in
-                        request.requestedScopes = [.fullName, .email]
-                    },
-                    onCompletion: { result in
-                        switch result {
-                        case .success(let authResults):
-                            print("✅ 애플 로그인 성공: \(authResults)")
-                        case .failure(let error):
-                            print("❌ 애플 로그인 실패: \(error.localizedDescription)")
-                        }
-                    }
-                )
-                .signInWithAppleButtonStyle(.black)
-                .frame(height: 45)
-                .cornerRadius(10)
-                .padding(.top, 10)
+//                SignInWithAppleButton(
+//                    .signIn,
+//                    onRequest: { request in
+//                        request.requestedScopes = [.fullName, .email]
+//                    },
+//                    onCompletion: { result in
+//                        switch result {
+//                        case .success(let authResults):
+//                            print("✅ 애플 로그인 성공: \(authResults)")
+//                        case .failure(let error):
+//                            print("❌ 애플 로그인 실패: \(error.localizedDescription)")
+//                        }
+//                    }
+//                )
+//                .signInWithAppleButtonStyle(.black)
+//                .frame(height: 45)
+//                .cornerRadius(10)
+//                .padding(.top, 10)
             }
             .padding()
         }

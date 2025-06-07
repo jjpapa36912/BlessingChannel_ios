@@ -32,6 +32,10 @@
 		0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0D2DE342420014B7AA /* Color+Extension.swift */; };
 		0AA77C102DE342590014B7AA /* BlessingChannelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */; };
 		0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */; };
+		0AF74C8F2DF3F21600D3B1AB /* BoardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C8E2DF3F21600D3B1AB /* BoardScreenView.swift */; };
+		0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */; };
+		0AF74C932DF3F29C00D3B1AB /* BoardPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */; };
+		0AF74C952DF3F2B800D3B1AB /* PostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C942DF3F2B800D3B1AB /* PostFormView.swift */; };
 		2203E4A7A7C847AB92516E16 /* Pods_BlessingChannel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B89553D7AEE625695218B666 /* Pods_BlessingChannel.framework */; };
 		225816B3296EE350BCDB4A6D /* Pods_BlessingChannelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C6411A980EC1A18BFF05CB /* Pods_BlessingChannelTests.framework */; };
 		D3F61DD3C1FE658AA9357CC2 /* Pods_BlessingChannel_BlessingChannelUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541D8C8C9690C5D0037C2C12 /* Pods_BlessingChannel_BlessingChannelUITests.framework */; };
@@ -86,6 +90,10 @@
 		0AA77C0D2DE342420014B7AA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlessingChannelApp.swift; sourceTree = "<group>"; };
 		0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedUser.swift; sourceTree = "<group>"; };
+		0AF74C8E2DF3F21600D3B1AB /* BoardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardScreenView.swift; sourceTree = "<group>"; };
+		0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
+		0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPost.swift; sourceTree = "<group>"; };
+		0AF74C942DF3F2B800D3B1AB /* PostFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFormView.swift; sourceTree = "<group>"; };
 		3849A8776BD76518E1EFF522 /* Pods-BlessingChannel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlessingChannel.debug.xcconfig"; path = "Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel.debug.xcconfig"; sourceTree = "<group>"; };
 		541D8C8C9690C5D0037C2C12 /* Pods_BlessingChannel_BlessingChannelUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlessingChannel_BlessingChannelUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		955ECBDAB991940BD90BD391 /* Pods-BlessingChannelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlessingChannelTests.debug.xcconfig"; path = "Target Support Files/Pods-BlessingChannelTests/Pods-BlessingChannelTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -147,12 +155,13 @@
 		0A44E04C2DE4A1EC00E240CA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0A44E04D2DE4A1F700E240CA /* MainScreenView.swift */,
+				0AF74C972DF3F2EA00D3B1AB /* my */,
+				0AF74C962DF3F2DD00D3B1AB /* main */,
+				0AF74C8D2DF3F20700D3B1AB /* board */,
 				0A44E04F2DE4A21D00E240CA /* DonationProgressView.swift */,
 				0A44E0512DE4A22E00E240CA /* NavigationBarView.swift */,
 				0A0E958F2DE5F232007DD546 /* KakaoLoginView.swift */,
 				0A02C11D2DE94D1B00A03F04 /* NaverLoginDelegate.swift */,
-				0A69079A2DEE86ED003F748C /* MyPageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -239,6 +248,33 @@
 				0AA77C0D2DE342420014B7AA /* Color+Extension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		0AF74C8D2DF3F20700D3B1AB /* board */ = {
+			isa = PBXGroup;
+			children = (
+				0AF74C8E2DF3F21600D3B1AB /* BoardScreenView.swift */,
+				0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */,
+				0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */,
+				0AF74C942DF3F2B800D3B1AB /* PostFormView.swift */,
+			);
+			path = board;
+			sourceTree = "<group>";
+		};
+		0AF74C962DF3F2DD00D3B1AB /* main */ = {
+			isa = PBXGroup;
+			children = (
+				0A44E04D2DE4A1F700E240CA /* MainScreenView.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		0AF74C972DF3F2EA00D3B1AB /* my */ = {
+			isa = PBXGroup;
+			children = (
+				0A69079A2DEE86ED003F748C /* MyPageView.swift */,
+			);
+			path = my;
 			sourceTree = "<group>";
 		};
 		636DE52BC84DA799741ADAF5 /* Pods */ = {
@@ -579,9 +615,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AA77BDE2DE3416A0014B7AA /* ViewController.swift in Sources */,
+				0AF74C8F2DF3F21600D3B1AB /* BoardScreenView.swift in Sources */,
 				0A44E0502DE4A21D00E240CA /* DonationProgressView.swift in Sources */,
+				0AF74C932DF3F29C00D3B1AB /* BoardPost.swift in Sources */,
 				0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */,
 				0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */,
+				0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */,
 				0A6907992DEC839F003F748C /* BannerAdView.swift in Sources */,
 				0A44E04E2DE4A1F700E240CA /* MainScreenView.swift in Sources */,
 				0A44E04B2DE4A1CD00E240CA /* User.swift in Sources */,
@@ -593,6 +632,7 @@
 				0A0E95902DE5F232007DD546 /* KakaoLoginView.swift in Sources */,
 				0A44E0522DE4A22E00E240CA /* NavigationBarView.swift in Sources */,
 				0A02C11E2DE94D1B00A03F04 /* NaverLoginDelegate.swift in Sources */,
+				0AF74C952DF3F2B800D3B1AB /* PostFormView.swift in Sources */,
 				0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
