@@ -117,6 +117,9 @@ struct BoardScreenView: View {
                                                         .padding(8)
                                                         .background(Color.white)
                                                         .cornerRadius(6)
+                                                        .foregroundColor(.black)
+                                                        .background(Color(UIColor.systemGray6))
+                                                        .foregroundColor(.primary)
 
                             Button("댓글 등록") {
                                 if let comment = commentTexts[post.id], !comment.isEmpty {

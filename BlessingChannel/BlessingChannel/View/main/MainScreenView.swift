@@ -18,128 +18,136 @@ struct MainScreenView: View {
 
     var body: some View {
        
-            ZStack(alignment: .topLeading) {
-                VStack(spacing: 0) {
-                    // 상단바
-                    HStack {
-                        Button(action: { withAnimation { showMenu.toggle() } }) {
-                            Image(systemName: "line.horizontal.3")
-                                .foregroundColor(.brown)
-                        }
-                        Spacer()
-                        Text("\(user.name)님 환영합니다")
-                            .fontWeight(.bold)
-                        Spacer()
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color.yellow.opacity(0.4))
-                    
-                    // 진행률 표시
-                    DonationProgressView(current: totalDonation, goal: 1_000_000)
-                    
-                    // 프로필
-                    HStack {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 50, height: 50)
+        ZStack(alignment: .topLeading) {
+            VStack(spacing: 0) {
+                // 상단바
+                HStack {
+                    Button(action: { withAnimation { showMenu.toggle() } }) {
+                        Image(systemName: "line.horizontal.3")
                             .foregroundColor(.brown)
-                        Text(user.name)
-                            .font(.title3)
+                    }
+                    Spacer()
+                    Text("\(user.name)님 환영합니다")
+                        .fontWeight(.bold)
+                    Spacer()
+                    Spacer()
+                }
+                .padding()
+                .background(Color.yellow.opacity(0.4))
+                
+                // 진행률 표시
+                DonationProgressView(current: totalDonation, goal: 1_000_000)
+                
+                // 프로필
+                HStack {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.brown)
+                    Text(user.name)
+                        .font(.title3)
+                        .foregroundColor(.brown)
+                        .padding(.leading, 8)
+                    Spacer()
+                }
+                .padding()
+                
+                // 광고 보고 기부하기 버튼
+                Button("정보 얻고 포인트 획득하기") {
+                    if !canWatchRewardedAd() {
+                        print("❗ 오늘 보상형 광고 시청 횟수 초과 (최대 5회)")
+                        return
+                    }
+                    
+                    if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+                        adManager.showAd(from: rootVC) {
+                            recordRewardedAdWatched()
+                            reportRewardedAdWatched()
+                        }
+                    }
+                }
+                
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.brown)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+                .padding(.horizontal)
+                
+                
+                
+                // 광고 로드 상태 표시
+                if !adManager.isAdLoaded {
+                    ProgressView("광고 로딩 중...")
+                        .onAppear { adManager.loadAd() }
+                }
+                
+                // 배너 광고 영역
+                ScrollView {
+                    VStack(spacing: 10) {
+                        ForEach(0..<4) { _ in
+                            BannerAdView()
+                                .frame(height: 50)
+                                .cornerRadius(8)
+                        }
+                        
+                        Text("필요한 정보는 당신에게, 따뜻한 나눔은 아이들에게.")
+                            .font(.footnote)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 10)
                             .foregroundColor(.brown)
-                            .padding(.leading, 8)
-                        Spacer()
                     }
                     .padding()
+                }
+                .onAppear {
                     
-                    // 광고 보고 기부하기 버튼
-                    Button("광고 보고 기부 하기") {
-                        if !canWatchRewardedAd() {
-                            print("❗ 오늘 보상형 광고 시청 횟수 초과 (최대 5회)")
-                            return
-                        }
-                        
-                        if let rootVC = UIApplication.shared.windows.first?.rootViewController {
-                            adManager.showAd(from: rootVC) {
-                                recordRewardedAdWatched()
-                                reportRewardedAdWatched()
-                            }
-                        }
-                    }
+                    //                        if !hasReportedToday() {
+                    //                            onEnterMain()                    // ✅ 배너 4원 + 0.4P 적립
+                    //                            markReportedToday()             // ✅ 날짜 저장
+                    //                        } else {
+                    //                            print("🔁 오늘 이미 배너 수익 처리됨")
+                    //                        }
+                    registerAndFetchSummary(userId: user.name)
                     
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.brown)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    .padding(.horizontal)
+                    //                    fetchTotalDonation() // 이건 서버 전체 모금액
+                    //                    fetchSummaryAndRegisterIfNeeded(userId: user.name) // 유저 등록 + 요약 정보 받기
                     
-                    
-                    
-                    // 광고 로드 상태 표시
-                    if !adManager.isAdLoaded {
-                        ProgressView("광고 로딩 중...")
-                            .onAppear { adManager.loadAd() }
-                    }
-                    
-                    // 배너 광고 영역
-                    ScrollView {
-                        VStack(spacing: 10) {
-                            ForEach(0..<4) { _ in
-                                BannerAdView()
-                                    .frame(height: 50)
-                                    .cornerRadius(8)
-                            }
-                            
-                            Text("필요한 정보는 당신에게, 따뜻한 나눔은 아이들에게.")
-                                .font(.footnote)
-                                .multilineTextAlignment(.center)
-                                .padding(.top, 10)
-                                .foregroundColor(.brown)
-                        }
-                        .padding()
-                    }
-                    .onAppear {
-                        
-                        //                        if !hasReportedToday() {
-                        //                            onEnterMain()                    // ✅ 배너 4원 + 0.4P 적립
-                        //                            markReportedToday()             // ✅ 날짜 저장
-                        //                        } else {
-                        //                            print("🔁 오늘 이미 배너 수익 처리됨")
-                        //                        }
-                        registerAndFetchSummary(userId: user.name)
-                        
-                        //                    fetchTotalDonation() // 이건 서버 전체 모금액
-                        //                    fetchSummaryAndRegisterIfNeeded(userId: user.name) // 유저 등록 + 요약 정보 받기
-                        
-                        reportBannerViewAndFetchDonations()
-                        
-                        
-                    }
-                    
-                    //                NavigationBarView()
-                    Button(action: {
-                        let boardView = BoardScreenView(currentUser: user.name)
-                        let vc = UIHostingController(rootView: boardView)
-                        vc.modalPresentationStyle = .fullScreen  // ✅ 전체 화면으로 설정
-                        UIApplication.shared.windows.first?.rootViewController?.present(vc, animated: true)
-                    }) {
-                        Text("📋 게시판")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.orange)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .padding(.horizontal)
-                    }
-                    .padding(.bottom, 20)
-
-
-
+                    reportBannerViewAndFetchDonations()
                     
                     
                 }
                 
+                //                NavigationBarView()
+                Button(action: {
+                    let boardView = BoardScreenView(currentUser: user.name)
+                    let vc = UIHostingController(rootView: boardView)
+                    vc.modalPresentationStyle = .fullScreen  // ✅ 전체 화면으로 설정
+                    UIApplication.shared.windows.first?.rootViewController?.present(vc, animated: true)
+                }) {
+                    Text("📋 게시판")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                }
+                .padding(.bottom, 20)
+                
+                
+                
+                
+                
+            }
+            // ✅ 햄버거 메뉴 보여질 때, 배경 탭 시 닫히도록 투명 레이어 추가
+            if showMenu {
+                Color.black.opacity(0.001) // 거의 안 보이는 투명 레이어 (탭 감지용)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            showMenu = false
+                        }
+                    }
                 // 🟡 햄버거 메뉴 레이어
                 if showMenu {
                     VStack(alignment: .leading, spacing: 16) {
@@ -162,7 +170,7 @@ struct MainScreenView: View {
                     .padding(.leading, 8)
                     .transition(.move(edge: .leading))
                 }
-            }
+            }}
         }
    
     func canReportBannerToday() -> Bool {
@@ -424,7 +432,8 @@ struct MainScreenView: View {
 struct API {
     static let baseURL: String = {
         #if DEBUG
-        return "http://127.0.0.1:8080"  // 🔧 개발용 로컬 서버
+//        return "http://127.0.0.1:8080"  // 🔧 개발용 로컬 서버
+        return "http://3.36.86.32:8080"
         #else
         return "http://3.36.86.32:8080" // 🚀 운영 서버 (예: AWS)
         #endif

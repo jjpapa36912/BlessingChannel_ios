@@ -20,7 +20,7 @@ struct BannerAdView: UIViewRepresentable {
 
         // ✅ 광고 ID 설정 (DEBUG/RELEASE 분기)
         let adUnitID: String = {
-        #if DEBUG
+        #if !DEBUG
             return "ca-app-pub-3940256099942544/2934735716" // 테스트용 배너 광고 ID
         #else
             return "ca-app-pub-5025904812537246/9924147936" // 실제 배너 광고 ID 입력

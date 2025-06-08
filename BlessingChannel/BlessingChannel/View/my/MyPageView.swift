@@ -46,6 +46,8 @@ struct MyPageView: View {
             // 🔹 포인트 및 누적 수익
             Text("현재 포인트: \(point)P")
                 .font(.subheadline)
+                .foregroundColor(.black)
+                
             
             // 🔹 쿠폰함 열기 버튼
             Button("쿠폰함 열기") {
@@ -61,6 +63,7 @@ struct MyPageView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("🏆 랭킹 보드")
                     .fontWeight(.bold)
+                    .foregroundColor(.black)
                 ForEach(topUsers.indices, id: \.self) { idx in
                     let user = topUsers[idx]
                     Text("\(idx + 1)위 - \(user.name): \(user.point)P")

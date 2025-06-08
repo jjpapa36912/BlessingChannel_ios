@@ -18,7 +18,7 @@ class RewardedAdManager: NSObject, FullScreenContentDelegate, ObservableObject {
         
         // ✅ 광고 ID 설정 (DEBUG/RELEASE 구분)
         let adUnitID: String = {
-        #if DEBUG
+        #if !DEBUG
             return "ca-app-pub-3940256099942544/1712485313" // 테스트용 보상형 광고 ID
         #else
             return "ca-app-pub-5025904812537246/8590884961" // 실제 보상형 광고 ID로 교체
