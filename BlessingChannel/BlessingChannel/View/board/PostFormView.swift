@@ -9,52 +9,47 @@ import Foundation
 import SwiftUI
 
 struct PostFormView: View {
-    var post: BoardPost?
-    var currentUser: String
-    var onSubmit: (String, String) -> Void
-    var onCancel: () -> Void
-
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: BoardViewModel
+    let currentUser: String
     @State private var title: String = ""
     @State private var content: String = ""
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            TextField("제목", text: $title)
-                .textFieldStyle(.roundedBorder)
-
-            TextEditor(text: $content)
-                .frame(minHeight: 100)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                )
-
-            HStack {
-                Button("취소", action: onCancel)
-                    .foregroundColor(.white)
+        NavigationView {
+            VStack(alignment: .leading, spacing: 16) {
+                TextField("(선택) 제목을 입력해주세요", text: $title)
                     .padding(.horizontal)
-                    .padding(.vertical, 6)
-                    .background(Color.gray)
+
+                Divider()
+
+                Text("욕설, 비방 등 상대방을 불쾌하게 하는 의견은 남기지 말아주세요. 신고를 당하면 커뮤니티 이용이 제한될 수 있어요.")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
+
+                TextEditor(text: $content)
+                    .padding()
+                    .background(Color(.systemGray6))
                     .cornerRadius(8)
+                    .padding(.horizontal)
 
                 Spacer()
-
-                Button(post == nil ? "등록" : "수정 완료") {
-                    onSubmit(title, content)
-                }
-                .foregroundColor(.white)
-                .padding(.horizontal)
-                .padding(.vertical, 6)
-                .background(Color.blue)
-                .cornerRadius(8)
             }
-        }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(10)
-        .onAppear {
-            title = post?.title ?? ""
-            content = post?.content ?? ""
+            .navigationTitle("글 작성")
+            .navigationBarItems(trailing: Button("남기기") {
+                let newPost = BoardPost(
+                    id: (viewModel.posts.map { $0.id }.max() ?? 0) + 1,
+                    author: currentUser,
+                    createdAt: "방금 전",
+                    title: title,
+                    content: content,
+                    likes: 0,
+                    comments: []
+                )
+                viewModel.posts.insert(newPost, at: 0)
+                dismiss()
+            }.disabled(content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty))
         }
     }
 }

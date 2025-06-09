@@ -32,28 +32,43 @@ struct LoginView: View {
                 CustomLoginButton(title: "카카오 로그인", action: handleKakaoLogin)
                 CustomLoginButton(title: "네이버 로그인", action: handleNaverLogin)
 
-//                SignInWithAppleButton(
-//                    .signIn,
-//                    onRequest: { request in
-//                        request.requestedScopes = [.fullName, .email]
-//                    },
-//                    onCompletion: { result in
-//                        switch result {
-//                        case .success(let authResults):
-//                            print("✅ 애플 로그인 성공: \(authResults)")
-//                        case .failure(let error):
-//                            print("❌ 애플 로그인 실패: \(error.localizedDescription)")
-//                        }
-//                    }
-//                )
-//                .signInWithAppleButtonStyle(.black)
-//                .frame(height: 45)
-//                .cornerRadius(10)
-//                .padding(.top, 10)
+                SignInWithAppleButton(
+                    .signIn,
+                    onRequest: { request in
+                        request.requestedScopes = [.fullName, .email]
+                    },
+                    onCompletion: { result in
+                        switch result {
+                        case .success(let authorization):
+                            handleAppleLogin(authResults: authorization) // ✅ 이 부분이 핵심
+                        case .failure(let error):
+                            print("❌ Apple 로그인 실패: \(error.localizedDescription)")
+                        }
+                    }
+                )
+
+                .signInWithAppleButtonStyle(.black)
+                .frame(height: 45)
+                .cornerRadius(10)
+                .padding(.top, 10)
             }
             .padding()
         }
     }
+    // MARK: - Apple 로그인 처리
+        func handleAppleLogin(authResults: ASAuthorization) {
+            if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
+                let name = credential.fullName?.givenName ?? "이름 없음"
+                let email = credential.email ?? "이메일 없음"
+
+                print("✅ 애플 로그인 성공 → \(name), \(email)")
+
+                // 필요한 경우 서버 전송 로직 추가 가능
+                // sendAppleTokenToBackend(credential)
+
+                navigateToMain(user: User(name: name))
+            }
+        }
 
     // MARK: - Google 로그인
     func handleGoogleSignIn() {

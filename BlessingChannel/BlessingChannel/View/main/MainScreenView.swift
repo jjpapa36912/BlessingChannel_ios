@@ -119,7 +119,8 @@ struct MainScreenView: View {
                 
                 //                NavigationBarView()
                 Button(action: {
-                    let boardView = BoardScreenView(currentUser: user.name)
+//                    let boardView = BoardScreenView(currentUser: user.name)
+                    let boardView = BoardMainView(currentUser: user.name)
                     let vc = UIHostingController(rootView: boardView)
                     vc.modalPresentationStyle = .fullScreen  // ✅ 전체 화면으로 설정
                     UIApplication.shared.windows.first?.rootViewController?.present(vc, animated: true)

@@ -22,6 +22,8 @@
 		0A6907972DEC8378003F748C /* RewardedAdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6907962DEC8378003F748C /* RewardedAdManager.swift */; };
 		0A6907992DEC839F003F748C /* BannerAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6907982DEC839F003F748C /* BannerAdView.swift */; };
 		0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69079A2DEE86ED003F748C /* MyPageView.swift */; };
+		0A6E23C82DF5CFBF005D3136 /* BoardMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E23C72DF5CFBF005D3136 /* BoardMainView.swift */; };
+		0A6E23CA2DF5D185005D3136 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E23C92DF5D185005D3136 /* PostCardView.swift */; };
 		0AA77BDE2DE3416A0014B7AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77BDD2DE3416A0014B7AA /* ViewController.swift */; };
 		0AA77BE32DE3416C0014B7AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AA77BE22DE3416C0014B7AA /* Assets.xcassets */; };
 		0AA77BE62DE3416C0014B7AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA77BE42DE3416C0014B7AA /* LaunchScreen.storyboard */; };
@@ -76,6 +78,9 @@
 		0A6907962DEC8378003F748C /* RewardedAdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdManager.swift; sourceTree = "<group>"; };
 		0A6907982DEC839F003F748C /* BannerAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdView.swift; sourceTree = "<group>"; };
 		0A69079A2DEE86ED003F748C /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		0A6E23C72DF5CFBF005D3136 /* BoardMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardMainView.swift; sourceTree = "<group>"; };
+		0A6E23C92DF5D185005D3136 /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
+		0A6E23CB2DF7253C005D3136 /* BlessingChannel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlessingChannel.entitlements; sourceTree = "<group>"; };
 		0AA77BD62DE3416A0014B7AA /* BlessingChannel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlessingChannel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA77BDD2DE3416A0014B7AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0AA77BE22DE3416C0014B7AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -200,6 +205,7 @@
 		0AA77BD82DE3416A0014B7AA /* BlessingChannel */ = {
 			isa = PBXGroup;
 			children = (
+				0A6E23CB2DF7253C005D3136 /* BlessingChannel.entitlements */,
 				0A6907952DEC8367003F748C /* Ad */,
 				0A0E958C2DE4A926007DD546 /* ViewComponents */,
 				0A44E04C2DE4A1EC00E240CA /* View */,
@@ -257,6 +263,8 @@
 				0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */,
 				0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */,
 				0AF74C942DF3F2B800D3B1AB /* PostFormView.swift */,
+				0A6E23C72DF5CFBF005D3136 /* BoardMainView.swift */,
+				0A6E23C92DF5D185005D3136 /* PostCardView.swift */,
 			);
 			path = board;
 			sourceTree = "<group>";
@@ -618,7 +626,9 @@
 				0AF74C8F2DF3F21600D3B1AB /* BoardScreenView.swift in Sources */,
 				0A44E0502DE4A21D00E240CA /* DonationProgressView.swift in Sources */,
 				0AF74C932DF3F29C00D3B1AB /* BoardPost.swift in Sources */,
+				0A6E23C82DF5CFBF005D3136 /* BoardMainView.swift in Sources */,
 				0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */,
+				0A6E23CA2DF5D185005D3136 /* PostCardView.swift in Sources */,
 				0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */,
 				0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */,
 				0A6907992DEC839F003F748C /* BannerAdView.swift in Sources */,
@@ -812,6 +822,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BlessingChannel/BlessingChannel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9KDUS59PR5;
@@ -844,6 +855,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BlessingChannel/BlessingChannel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9KDUS59PR5;

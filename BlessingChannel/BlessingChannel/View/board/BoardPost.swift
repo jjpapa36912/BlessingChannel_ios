@@ -6,17 +6,26 @@
 //
 
 import Foundation
-import Foundation
 
-struct BoardPost: Identifiable, Codable {
+struct BoardPost: Identifiable {
     let id: Int
-    var title: String
-    var content: String
-    var author: String
-    var createdAt: String
+    let author: String
+    let createdAt: String
+    let title: String
+    let content: String
+    var likes: Int
     var comments: [String]
-    var isNotice: Bool
 }
+//
+//struct BoardPost: Identifiable, Codable {
+//    let id: Int
+//    var title: String
+//    var content: String
+//    var author: String
+//    var createdAt: String
+//    var comments: [String]
+//    var isNotice: Bool
+//}
 
 struct CommentRequest: Codable {
     let author: String
