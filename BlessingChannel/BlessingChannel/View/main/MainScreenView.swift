@@ -26,7 +26,7 @@ struct MainScreenView: View {
                 .padding()
                 .background(Color.yellow.opacity(0.4))
 
-                DonationProgressView(current: totalDonation, goal: 1_000_000)
+                DonationProgressView(current: self.totalDonation , goal: 1_000_000)
 
                 HStack {
                     Image(systemName: "person.circle.fill")
@@ -82,8 +82,14 @@ struct MainScreenView: View {
                     .padding()
                 }
                 .onAppear {
-                    registerAndFetchSummary(userId: user.name)
-                    reportBannerViewAndFetchDonations()
+                    if !user.isGuest {
+                            registerAndFetchSummary(userId: user.name)
+                            reportBannerViewAndFetchDonations()
+                        } else {
+                            print("👤 게스트로 진입 — 유저 요약 등록/포인트 적립 생략")
+                        }
+
+                        fetchTotalDonation()  // ✅ 이건 무조건 실행
                 }
 
                 Button("게시판") {
@@ -137,6 +143,32 @@ struct MainScreenView: View {
         }
     }
 
+    func fetchTotalDonation() {
+        guard let url = URL(string: "\(API.baseURL)/api/users/total-donation") else {
+            print("❌ 전체 기부액 URL 생성 실패")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                print("❌ 전체 기부액 요청 실패: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let total = json["totalDonation"] as? Int else {
+                print("❌ 전체 기부액 응답 파싱 실패")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.totalDonation = total
+                print("✅ 전체 기부액 수신: \(total)")
+            }
+        }.resume()
+    }
+
     func canWatchRewardedAd() -> Bool {
         let today = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none)
         let key = "rewardedAdCount_\(today)"
@@ -170,12 +202,12 @@ struct MainScreenView: View {
             guard let data = data,
                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                   let donation = json["totalDonation"] as? Int,
-                  let point = json["totalPoint"] as? Int else {
+                  let point = json["point"] as? Int else {
                 print("❌ 응답 파싱 실패")
                 return
             }
             DispatchQueue.main.async {
-                self.totalDonation = donation
+//                self.totalDonation = donation
                 self.userDonation = point
                 print("✅ 유저 등록/기부 반영 완료: 총 \(donation)P / 내 포인트 \(point)P")
             }
