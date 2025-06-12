@@ -27,24 +27,11 @@
     <string>ca-app-pub-5025904812537246~2354387903</string>
     <!-- ✅ 도메인 http 예외 추가 -->
 
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSExceptionDomains</key>
-        <dict>
-            <key>3.36.86.32</key>
-            <dict>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-                <key>NSIncludesSubdomains</key>
-                <true/>
-            </dict>
-        </dict>
-    </dict>
 <!--    <key>NSAppTransportSecurity</key>-->
 <!--    <dict>-->
 <!--        <key>NSExceptionDomains</key>-->
 <!--        <dict>-->
-<!--            <key>127.0.0.1</key>-->
+<!--            <key>3.36.86.32</key>-->
 <!--            <dict>-->
 <!--                <key>NSExceptionAllowsInsecureHTTPLoads</key>-->
 <!--                <true/>-->
@@ -53,6 +40,19 @@
 <!--            </dict>-->
 <!--        </dict>-->
 <!--    </dict>-->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>127.0.0.1</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
 <!--    <key>NSAppTransportSecurity</key>-->
 <!--    <dict>-->
 <!--        <key>NSExceptionDomains</key>-->

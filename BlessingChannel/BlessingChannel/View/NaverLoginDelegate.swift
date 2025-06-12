@@ -52,7 +52,7 @@ class NaverLoginDelegate: NSObject, NaverThirdPartyLoginConnectionDelegate {
 
                        print("✅ [NAVER] 사용자 이름: \(name)")
                        DispatchQueue.main.async {
-                           self.navigateToMain(user: User(name: name))
+                           self.navigateToMain(user: User(name: name, isGuest: false))
                        }
                    } else {
                        print("❌ JSON 파싱 실패: 'response' 키 없음")

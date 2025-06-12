@@ -7,15 +7,17 @@
 
 import Foundation
 
-struct BoardPost: Identifiable {
+struct BoardPost: Codable, Identifiable {
     let id: Int
     let author: String
     let createdAt: String
-    let title: String
-    let content: String
-    var likes: Int
-    var comments: [String]
+    var title: String
+    var content: String
+    let likes: Int
+    var comments: [Comment]
+    var isNotice: Bool
 }
+
 //
 //struct BoardPost: Identifiable, Codable {
 //    let id: Int
@@ -31,3 +33,11 @@ struct CommentRequest: Codable {
     let author: String
     let content: String
 }
+struct Comment: Identifiable, Codable {
+    let id: Int
+    let author: String
+    let content: String
+    var likes: Int
+    var emoji: String
+}
+

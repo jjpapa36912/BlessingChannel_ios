@@ -54,6 +54,17 @@ struct LoginView: View {
             }
             .padding()
         }
+        Button(action: {
+            let guestUser = User(name: "게스트", isGuest: true)
+            navigateToMain(user: guestUser)
+        }) {
+            Text("그냥 한번 둘러볼래요")
+                .foregroundColor(.gray)
+                .font(.subheadline)
+                .underline()
+                .padding(.top, 20)
+        }
+
     }
     // MARK: - Apple 로그인 처리
         func handleAppleLogin(authResults: ASAuthorization) {
@@ -66,7 +77,7 @@ struct LoginView: View {
                 // 필요한 경우 서버 전송 로직 추가 가능
                 // sendAppleTokenToBackend(credential)
 
-                navigateToMain(user: User(name: name))
+                navigateToMain(user: User(name: name, isGuest: false))
             }
         }
 
@@ -95,7 +106,7 @@ struct LoginView: View {
             let email = user.profile?.email ?? "이메일 없음"
             print("✅ 구글 로그인 성공 → \(name), \(email)")
 
-            navigateToMain(user: User(name: name))
+            navigateToMain(user: User(name: name, isGuest: false))
         }
     }
 
@@ -156,7 +167,7 @@ struct LoginView: View {
 
             let name = user?.kakaoAccount?.profile?.nickname ?? "이름 없음"
             let email = user?.kakaoAccount?.email ?? "이메일 없음"
-            navigateToMain(user: User(name: name))
+            navigateToMain(user: User(name: name, isGuest: false))
         }
     }
 

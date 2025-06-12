@@ -1,133 +1,91 @@
-//
-//  PostCardView.swift
-//  BlessingChannel
-//
-//  Created by 김동준 on 6/8/25.
-//
-
-import Foundation
 
 import SwiftUI
 
 struct PostCardView: View {
     let post: BoardPost
     let currentUser: String
-    @Binding var expandedPostId: Int?
     @Binding var activeReactionPostId: Int?
     @Binding var commentTexts: [Int: String]
     @Binding var selectedEmoji: [Int: String]
-    @ObservedObject var viewModel: BoardViewModel
+    var onCommentAdd: (Int, String) -> Void
+    var onCommentDelete: (Int, Int, String) -> Void
+    var onEmojiReact: (Int, Int, String) -> Void
 
     var body: some View {
-        let isExpanded = expandedPostId == post.id
-        let isReacting = activeReactionPostId == post.id
-        let commentText = commentTexts[post.id] ?? ""
-
-        return VStack(alignment: .leading, spacing: 8) {
-            // 작성자, 제목, 시간
-            HStack(alignment: .top) {
-                Circle()
-                    .fill(Color.gray)
-                    .frame(width: 36, height: 36)
-
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(post.author).fontWeight(.bold)
-                        if !post.title.isEmpty {
-                            Text("· \(post.title)")
-                                .font(.subheadline)
-                                .foregroundColor(.primary)
-                        }
-                    }
-                    Text(post.createdAt)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-            }
-
-            Text(isExpanded || post.content.count <= 100 ? post.content : post.content.prefix(100) + "...")
-
-            if post.content.count > 100 {
-                Button(isExpanded ? "접기" : "더 보기") {
-                    expandedPostId = isExpanded ? nil : post.id
-                }
-                .font(.caption)
-                .foregroundColor(.blue)
-            }
-
-            // 하단 아이콘
-            HStack(spacing: 16) {
-                Label("\(post.likes)", systemImage: "heart")
-                Button {
-                    activeReactionPostId = post.id
-                } label: {
-                    Label("\(post.comments.count)", systemImage: "message")
-                }
-                Image(systemName: "arrow.2.squarepath")
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(post.title)
+                    .font(.headline)
+                    .bold()
                 Spacer()
-                Menu {
-                    Button("수정") {}
-                    Button("삭제", role: .destructive) {
-                        viewModel.deletePost(id: post.id)
-                    }
-                } label: {
-                    Image(systemName: "ellipsis")
+                if post.isNotice {
+                    Text("공지")
+                        .font(.caption2)
+                        .padding(4)
+                        .background(Color.yellow.opacity(0.4))
+                        .cornerRadius(4)
                 }
             }
-            .font(.subheadline)
-            .foregroundColor(.gray)
 
-            // 댓글 및 이모지 입력 바
-            if isReacting {
-                VStack(spacing: 8) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16) {
-                            ForEach(["📈", "📉", "❤️", "👍", "🙏", "😀", "😢"], id: \.self) { emoji in
-                                Text(emoji)
-                                    .font(.largeTitle)
-                                    .onTapGesture {
-                                        selectedEmoji[post.id] = emoji
-                                    }
-                                    .background(
-                                        Circle()
-                                            .fill(selectedEmoji[post.id] == emoji ? Color.blue.opacity(0.3) : Color.clear)
-                                    )
-                            }
-                        }
-                        .padding(.horizontal)
-                    }
+            Text(post.content)
+                .font(.body)
+                .foregroundColor(.primary)
 
+            HStack {
+                Text("by \(post.author)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Spacer()
+                Text(post.createdAt)
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+            }
+
+            Divider()
+
+            ForEach(post.comments) { comment in
+                VStack(alignment: .leading, spacing: 4) {
                     HStack {
-                        Image(systemName: "person.circle.fill")
-                        TextField("\(currentUser)님의 생각을 적어주세요", text: Binding(
-                            get: { commentTexts[post.id] ?? "" },
-                            set: { commentTexts[post.id] = $0 }
-                        ))
-
-                        .padding(8)
-                        .background(Color(.systemGray5))
-                        .cornerRadius(8)
-
-                        if !commentText.trimmingCharacters(in: .whitespaces).isEmpty {
-                            Button {
-                                viewModel.addComment(postId: post.id, comment: "\(currentUser): \(commentText)")
-                                commentTexts[post.id] = ""
-                            } label: {
-                                Image(systemName: "paperplane.fill")
-                                    .foregroundColor(.blue)
+                        Text("\(comment.author): \(comment.content)")
+                            .font(.subheadline)
+                        Spacer()
+                        if comment.author == currentUser {
+                            Button(action: {
+                                onCommentDelete(post.id, comment.id, currentUser)
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
                             }
                         }
                     }
-                    .padding(.horizontal)
+                    HStack {
+                        Button("😀") { onEmojiReact(post.id, comment.id, "😀") }
+                        Button("👍") { onEmojiReact(post.id, comment.id, "👍") }
+                        Button("❤️") { onEmojiReact(post.id, comment.id, "❤️") }
+                    }
+                    .font(.caption)
                 }
-                .padding(.vertical)
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
-                .padding(.top, 4)
+            }
+
+            HStack {
+                TextField("댓글을 입력하세요", text: Binding(get: {
+                    commentTexts[post.id] ?? ""
+                }, set: { newVal in
+                    commentTexts[post.id] = newVal
+                }))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                Button("등록") {
+                    if let text = commentTexts[post.id], !text.isEmpty {
+                        onCommentAdd(post.id, text)
+                        commentTexts[post.id] = ""
+                    }
+                }
             }
         }
         .padding()
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(12)
+        .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
+        .shadow(radius: 2)
+        .padding(.vertical, 5)
     }
 }

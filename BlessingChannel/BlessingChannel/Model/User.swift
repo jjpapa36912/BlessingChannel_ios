@@ -8,4 +8,5 @@
 import Foundation
 struct User {
     let name: String
+    let isGuest: Bool 
 }

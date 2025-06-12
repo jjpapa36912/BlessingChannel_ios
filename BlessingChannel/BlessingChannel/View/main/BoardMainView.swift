@@ -1,10 +1,5 @@
-// BoardMainView.swift
-
-// BoardMainView.swift
-
-// BoardMainView.swift
-// BoardMainView.swift
 import SwiftUI
+
 
 struct BoardMainView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -17,6 +12,9 @@ struct BoardMainView: View {
     @State private var activeReactionPostId: Int? = nil
     @State private var commentTexts: [Int: String] = [:]
     @State private var selectedEmoji: [Int: String] = [:]
+    @State private var selectedPostForEdit: BoardPost? = nil
+    @State private var currentPage = 0
+
     let currentUser: String
 
     var filteredPosts: [BoardPost] {
@@ -31,9 +29,10 @@ struct BoardMainView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                // 상단 메뉴바
                 HStack {
                     Button(action: {
+                        print("🔙 뒤로가기 버튼 클릭됨")
+
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -47,11 +46,13 @@ struct BoardMainView: View {
                     Spacer()
 
                     Button(action: { showMyPosts.toggle() }) {
+                        
                         Text(showMyPosts ? "전체 글 보기" : "내 글만 보기")
                             .font(.subheadline)
                     }
 
                     Button(action: {
+                        selectedPostForEdit = nil
                         showPostForm = true
                     }) {
                         Image(systemName: "square.and.pencil")
@@ -61,34 +62,48 @@ struct BoardMainView: View {
                 }
                 .padding()
 
-                // 검색창
                 if showSearchBar {
                     TextField("검색어를 입력하세요", text: $searchText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding([.horizontal, .bottom])
                 }
 
-                // 게시글 리스트
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(filteredPosts) { post in
                             PostCardView(
                                 post: post,
                                 currentUser: currentUser,
-                                expandedPostId: $expandedPostId,
                                 activeReactionPostId: $activeReactionPostId,
                                 commentTexts: $commentTexts,
                                 selectedEmoji: $selectedEmoji,
-                                viewModel: viewModel
+                                onCommentAdd: { postId, text in
+                                    viewModel.addComment(postId: postId, author: currentUser, content: text) // ✅ 순서 일치
+                                },
+                                onCommentDelete: { postId, commentId, author in
+                                    viewModel.deleteComment(postId: postId, commentId: commentId, author: author)
+                                },
+                                onEmojiReact: { postId, commentId, emoji in
+                                    viewModel.reactToComment(postId: postId, commentId: commentId, emoji: emoji, author: currentUser)
+                                }
                             )
                         }
+
+                        if viewModel.hasMorePages {
+                            Button("더 보기") {
+                                viewModel.fetchNextPage()
+                            }
+                            .padding(.vertical)
+                        }
+
                     }
                     .padding(.horizontal)
                 }
 
-                // 글쓰기 폼
-                .sheet(isPresented: $showPostForm) {
-                    PostFormView(viewModel: viewModel, currentUser: currentUser)
+                .sheet(isPresented: $showPostForm, onDismiss: {
+                    viewModel.refreshPosts() // ✅ 글 작성 or 수정 후 새로고침
+                }) {
+                    PostFormView(viewModel: viewModel, currentUser: currentUser, editingPost: selectedPostForEdit)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -102,6 +117,11 @@ struct BoardMainView: View {
                         Image(systemName: showSearchBar ? "xmark.circle.fill" : "magnifyingglass")
                     }
                 }
+            }
+            .onAppear {
+                print("📌 BoardMainView appeared, fetching page \(currentPage)")
+
+                viewModel.refreshPosts()
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

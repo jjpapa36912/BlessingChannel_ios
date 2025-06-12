@@ -24,6 +24,8 @@
 		0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69079A2DEE86ED003F748C /* MyPageView.swift */; };
 		0A6E23C82DF5CFBF005D3136 /* BoardMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E23C72DF5CFBF005D3136 /* BoardMainView.swift */; };
 		0A6E23CA2DF5D185005D3136 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E23C92DF5D185005D3136 /* PostCardView.swift */; };
+		0A6E23CD2DF8605A005D3136 /* CommentReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E23CC2DF8605A005D3136 /* CommentReaction.swift */; };
+		0A6E23D02DF86347005D3136 /* PagedPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E23CF2DF86347005D3136 /* PagedPostResponse.swift */; };
 		0AA77BDE2DE3416A0014B7AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77BDD2DE3416A0014B7AA /* ViewController.swift */; };
 		0AA77BE32DE3416C0014B7AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AA77BE22DE3416C0014B7AA /* Assets.xcassets */; };
 		0AA77BE62DE3416C0014B7AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA77BE42DE3416C0014B7AA /* LaunchScreen.storyboard */; };
@@ -81,6 +83,8 @@
 		0A6E23C72DF5CFBF005D3136 /* BoardMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardMainView.swift; sourceTree = "<group>"; };
 		0A6E23C92DF5D185005D3136 /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
 		0A6E23CB2DF7253C005D3136 /* BlessingChannel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlessingChannel.entitlements; sourceTree = "<group>"; };
+		0A6E23CC2DF8605A005D3136 /* CommentReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentReaction.swift; sourceTree = "<group>"; };
+		0A6E23CF2DF86347005D3136 /* PagedPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedPostResponse.swift; sourceTree = "<group>"; };
 		0AA77BD62DE3416A0014B7AA /* BlessingChannel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlessingChannel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA77BDD2DE3416A0014B7AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0AA77BE22DE3416C0014B7AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -180,6 +184,14 @@
 			path = Ad;
 			sourceTree = "<group>";
 		};
+		0A6E23CE2DF8633D005D3136 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				0A6E23CF2DF86347005D3136 /* PagedPostResponse.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		0AA77BCD2DE3416A0014B7AA = {
 			isa = PBXGroup;
 			children = (
@@ -259,12 +271,13 @@
 		0AF74C8D2DF3F20700D3B1AB /* board */ = {
 			isa = PBXGroup;
 			children = (
+				0A6E23CE2DF8633D005D3136 /* model */,
 				0AF74C8E2DF3F21600D3B1AB /* BoardScreenView.swift */,
 				0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */,
 				0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */,
 				0AF74C942DF3F2B800D3B1AB /* PostFormView.swift */,
-				0A6E23C72DF5CFBF005D3136 /* BoardMainView.swift */,
 				0A6E23C92DF5D185005D3136 /* PostCardView.swift */,
+				0A6E23CC2DF8605A005D3136 /* CommentReaction.swift */,
 			);
 			path = board;
 			sourceTree = "<group>";
@@ -273,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				0A44E04D2DE4A1F700E240CA /* MainScreenView.swift */,
+				0A6E23C72DF5CFBF005D3136 /* BoardMainView.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -622,6 +636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A6E23D02DF86347005D3136 /* PagedPostResponse.swift in Sources */,
 				0AA77BDE2DE3416A0014B7AA /* ViewController.swift in Sources */,
 				0AF74C8F2DF3F21600D3B1AB /* BoardScreenView.swift in Sources */,
 				0A44E0502DE4A21D00E240CA /* DonationProgressView.swift in Sources */,
@@ -639,6 +654,7 @@
 				0A44E0482DE4A13300E240CA /* AppDelegate.swift in Sources */,
 				0AA77C102DE342590014B7AA /* BlessingChannelApp.swift in Sources */,
 				0A0E958B2DE4A90B007DD546 /* CustomLoginButton.swift in Sources */,
+				0A6E23CD2DF8605A005D3136 /* CommentReaction.swift in Sources */,
 				0A0E95902DE5F232007DD546 /* KakaoLoginView.swift in Sources */,
 				0A44E0522DE4A22E00E240CA /* NavigationBarView.swift in Sources */,
 				0A02C11E2DE94D1B00A03F04 /* NaverLoginDelegate.swift in Sources */,

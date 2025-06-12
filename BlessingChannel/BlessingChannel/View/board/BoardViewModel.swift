@@ -1,360 +1,241 @@
-//
-//  BoardViewModel.swift
-//  BlessingChannel
-//
-//  Created by 김동준 on 6/7/25.
-//
-
-import Foundation
 import Foundation
 import Combine
 
 class BoardViewModel: ObservableObject {
-    @Published var posts: [BoardPost] = [
-        BoardPost(id: 1, author: "리얼헌", createdAt: "3시간 전", title: "나스닥 폭락", content: "연준 금리인하 불확실 의견이 있으니 채권 레버 찍먹 실패 ㅋㅋ...연준 금리인하 불확실 의견이 있으니 채권 레버 찍먹 실패 ㅋㅋ...연준 금리인하 불확실 의견이 있으니 채권 레버 찍먹 실패 ㅋㅋ...연준 금리인하 불확실 의견이 있으니 채권 레버 찍먹 실패 ㅋㅋ...연준 금리인하 불확실 의견이 있으니 채권 레버 찍먹 실패 ㅋㅋ...연준 금리인하 불확실 의견이 있으니 채권 레버 찍먹 실패 ㅋㅋ...", likes: 8, comments: ["동감합니다", "그래도 반등 기대합니다"]),
-        BoardPost(id: 2, author: "TeslaZoa", createdAt: "6시간 전", title: "일론 머스크", content: "‘America Party’ 설문엔 약 80%가 찬성 투표....", likes: 3, comments: ["충격", "진짜 만들까?"])
-    ]
+    @Published var posts: [BoardPost] = []
+    @Published var currentPage: Int = 0
+    @Published var totalPages: Int = 1
+    @Published var isLoading: Bool = false
 
     init() {
-//            fetchPostsFromServer()
-        }
+        fetchPostsFromServer()
+    }
 
-        func fetchPostsFromServer() {
-            guard let url = URL(string: "\(API.baseURL)/api/posts") else { return }
+    func fetchNextPage(reset: Bool = false) {
+        guard !isLoading else { return }
+
+        isLoading = true
+        let pageToFetch = reset ? 0 : currentPage
+        guard let url = URL(string: "\(API.baseURL)/api/posts/paged?page=\(pageToFetch)&size=10") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            defer { self.isLoading = false }
+
+            guard let data = data else {
+                print("❌ 데이터 없음")
+                return
+            }
+
+            do {
+                let postList = try JSONDecoder().decode([BoardPost].self, from: data)
+                DispatchQueue.main.async {
+                    if reset {
+                        self.posts = postList
+                        self.currentPage = 1
+                    } else {
+                        self.posts += postList
+                        self.currentPage += 1
+                    }
+                    self.hasMorePages = !postList.isEmpty
+                }
+            } catch {
+                print("❌ 디코딩 실패: \(error)")
+                print("🔥 응답 원문: \(String(data: data, encoding: .utf8) ?? "N/A")")
+            }
+        }.resume()
+    }
+
+
+    func refreshPosts() {
+        currentPage = 0
+        hasMorePages = true
+        posts = []
+        fetchNextPage(reset: true)
+    }
+
+    
+    func fetchPostsFromServer(reset: Bool = false) {
+            if isLoading || (!reset && !hasMorePages) { return }
+
+            isLoading = true
+
+            let pageToFetch = reset ? 0 : currentPage
+            guard let url = URL(string: "\(API.baseURL)/api/posts/paged?page=\(pageToFetch)&size=10") else { return }
 
             URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    do {
-                        if let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
-                            let postList = jsonArray.compactMap { dict -> BoardPost? in
-                                guard let id = dict["id"] as? Int,
-                                      let title = dict["title"] as? String,
-                                      let content = dict["content"] as? String,
-                                      let author = dict["author"] as? String,
-                                      let likes = dict["likes"] as? Int,
-                                      let createdAt = dict["createdAt"] as? String else { return nil }
+                defer { self.isLoading = false }
 
-                                let comments = (dict["comments"] as? [String]) ?? []
-                                let isNotice = dict["isNotice"] as? Bool ?? (author == "김동준")
+                guard let data = data else {
+                    print("❌ 데이터 없음")
+                    return
+                }
 
-                                return BoardPost(
-                                    id: id,
-                                    author: author,
-                                    createdAt: createdAt,
-                                    title: title,
-                                    content: content,
-                                    likes:likes,
-                                    comments: comments,
-                                )
-                            }
-                            DispatchQueue.main.async {
-                                self.posts = postList
-                            }
+                do {
+                    let postList = try JSONDecoder().decode([BoardPost].self, from: data)
+                    DispatchQueue.main.async {
+                        if reset {
+                            self.posts = postList
+                            self.currentPage = 1
+                        } else {
+                            self.posts += postList
+                            self.currentPage += 1
                         }
-                    } catch {
-                        print("❌ 게시글 파싱 실패: \(error.localizedDescription)")
+                        self.hasMorePages = !postList.isEmpty
                     }
+                } catch {
+                    print("❌ 디코딩 실패: \(error)")
+                    print("🔥 응답 원문: \(String(data: data, encoding: .utf8) ?? "N/A")")
                 }
             }.resume()
         }
 
-        func addPost(title: String, content: String, author: String) {
-            guard let url = URL(string: "\(API.baseURL)/api/posts") else { return }
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    @Published var hasMorePages: Bool = true
 
-            let isNotice = (author == "김동준")
-            let json: [String: Any] = [
-                "title": title,
-                "content": content,
-                "author": author,
-                "isNotice": isNotice
-            ]
 
-            request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+    func reactToComment(postId: Int, commentId: Int, emoji: String, author: String) {
+        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments/\(commentId)/react") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                    self.fetchPostsFromServer()
-                } else {
-                    print("❌ 글 등록 실패")
+        let json: [String: Any] = [
+            "author": author,
+            "emoji": emoji
+        ]
+
+        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("❌ 댓글 리액션 실패: \(error.localizedDescription)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                print("✅ 댓글에 리액션 등록 완료")
+            }
+        }.resume()
+    }
+
+
+    func loadNextPageIfNeeded(currentPost post: BoardPost) {
+        guard let lastPost = posts.last, lastPost.id == post.id else { return }
+        guard hasMorePages else { return }
+        fetchNextPage()
+    }
+
+
+    func addPost(title: String, content: String, author: String) {
+        guard let url = URL(string: "\(API.baseURL)/api/posts") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let isNotice = (author == "김동준")
+        let json: [String: Any] = [
+            "title": title,
+            "content": content,
+            "author": author,
+            "isNotice": isNotice
+        ]
+
+        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+
+        URLSession.shared.dataTask(with: request) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                DispatchQueue.main.async {
+                    self.refreshPosts() // ✅ 교체됨
                 }
-            }.resume()
-        }
-
-        func updatePost(id: Int, title: String, content: String, author: String) {
-            guard let url = URL(string: "\(API.baseURL)/api/posts/\(id)") else { return }
-            var request = URLRequest(url: url)
-            request.httpMethod = "PUT"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-            let json: [String: Any] = [
-                "title": title,
-                "content": content,
-                "author": author // ✅ 포함해야 서버에서 isNotice 여부 판단 가능
-            ]
-
-            request.httpBody = try? JSONSerialization.data(withJSONObject: json)
-
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                    self.fetchPostsFromServer()
-                } else {
-                    print("❌ 글 수정 실패")
-                }
-            }.resume()
-        }
+            } else {
+                print("❌ 글 등록 실패")
+            }
+        }.resume()
+    }
 
 
-        func deletePost(id: Int) {
-            guard let url = URL(string: "\(API.baseURL)/api/posts/\(id)") else { return }
-            var request = URLRequest(url: url)
-            request.httpMethod = "DELETE"
+    func updatePost(id: Int, title: String, content: String, author: String) {
+        guard let url = URL(string: "\(API.baseURL)/api/posts/\(id)") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-            URLSession.shared.dataTask(with: request) { data, response, error in
+        let json: [String: Any] = [
+            "title": title,
+            "content": content,
+            "author": author
+        ]
+
+        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+
+        URLSession.shared.dataTask(with: request) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                self.fetchPostsFromServer()
+            } else {
+                print("❌ 글 수정 실패")
+            }
+        }.resume()
+    }
+
+    func deletePost(id: Int) {
+        guard let url = URL(string: "\(API.baseURL)/api/posts/\(id)") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+
+        URLSession.shared.dataTask(with: request) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
                 DispatchQueue.main.async {
                     self.posts.removeAll { $0.id == id }
                 }
-            }.resume()
+            } else {
+                print("❌ 글 삭제 실패")
+            }
+        }.resume()
+    }
+
+    func addComment(postId: Int, author: String, content: String) {
+        // 1. 로컬 UI 반영 먼저
+        DispatchQueue.main.async {
+            if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+                let newComment = Comment(id: Int.random(in: 10_000...99_999), author: author, content: content, likes: 0, emoji: "")
+                self.posts[index].comments.append(newComment)
+            }
         }
 
-        func addComment(postId: Int, comment: String) {
-            guard let url = URL(string: "\(API.baseURL)/api/posts/board/\(postId)/comments") else { return }
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        // 2. 서버에 실제 요청 전송
+        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-            let author = comment.components(separatedBy: ":").first ?? "익명"
-            let content = comment.components(separatedBy: ":").dropFirst().joined(separator: ":").trimmingCharacters(in: .whitespaces)
+        let json: [String: Any] = ["author": author, "content": content]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
 
-            let json: [String: Any] = ["author": author, "content": content]
-            request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+        URLSession.shared.dataTask(with: request) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                print("✅ 댓글 서버 등록 완료")
+            } else {
+                print("❌ 댓글 등록 실패: 서버와 불일치 가능성 있음")
+            }
+        }.resume()
+    }
 
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                    DispatchQueue.main.async {
-                        self.posts = self.posts.map {
-                            if $0.id == postId {
-                                var updated = $0
-                                updated.comments.append(comment)
-                                return updated
-                            } else {
-                                return $0
-                            }
-                        }
-                    }
-                } else {
-                    print("❌ 댓글 등록 실패")
-                }
-            }.resume()
-        }
 
-        func deleteComment(postId: Int, comment: String) {
-            guard let url = URL(string: "\(API.baseURL)/api/posts/board/\(postId)/comments") else { return }
-            var request = URLRequest(url: url)
-            request.httpMethod = "DELETE"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    func deleteComment(postId: Int, commentId: Int, author: String) {
+        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments/\(commentId)/with-auth?author=\(author)")
+else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
 
-            let author = comment.components(separatedBy: ":").first ?? ""
-            let content = comment.components(separatedBy: ":").dropFirst().joined(separator: ":").trimmingCharacters(in: .whitespaces)
-
-            let body: [String: String] = [
-                "author": author,
-                "content": content
-            ]
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-
-            URLSession.shared.dataTask(with: request) { _, response, error in
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    print("❌ 댓글 삭제 실패")
-                    return
-                }
+        URLSession.shared.dataTask(with: request) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
                 DispatchQueue.main.async {
-                    self.posts = self.posts.map {
-                        if $0.id == postId {
-                            var updated = $0
-                            updated.comments.removeAll { $0 == comment }
-                            return updated
-                        } else {
-                            return $0
-                        }
+                    if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+                        self.posts[index].comments.removeAll { $0.id == commentId }
                     }
                 }
-            }.resume()
-        }
+            } else {
+                print("❌ 댓글 삭제 실패")
+            }
+        }.resume()
+    }
 }
-
-
-//class BoardViewModel: ObservableObject {
-//    @Published var posts: [BoardPost] = []
-//
-//    init() {
-//        fetchPostsFromServer()
-//    }
-//
-//    func fetchPostsFromServer() {
-//        guard let url = URL(string: "\(API.baseURL)/api/posts") else { return }
-//
-//        URLSession.shared.dataTask(with: url) { data, response, error in
-//            if let data = data {
-//                do {
-//                    if let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
-//                        let postList = jsonArray.compactMap { dict -> BoardPost? in
-//                            guard let id = dict["id"] as? Int,
-//                                  let title = dict["title"] as? String,
-//                                  let content = dict["content"] as? String,
-//                                  let author = dict["author"] as? String,
-//                                  let createdAt = dict["createdAt"] as? String else { return nil }
-//
-//                            let comments = (dict["comments"] as? [String]) ?? []
-//                            let isNotice = dict["isNotice"] as? Bool ?? (author == "김동준")
-//
-//                            return BoardPost(
-//                                id: id,
-//                                title: title,
-//                                content: content,
-//                                author: author,
-//                                createdAt: createdAt,
-//                                comments: comments,
-//                                isNotice: isNotice
-//                            )
-//                        }
-//                        DispatchQueue.main.async {
-//                            self.posts = postList
-//                        }
-//                    }
-//                } catch {
-//                    print("❌ 게시글 파싱 실패: \(error.localizedDescription)")
-//                }
-//            }
-//        }.resume()
-//    }
-//
-//    func addPost(title: String, content: String, author: String) {
-//        guard let url = URL(string: "\(API.baseURL)/api/posts") else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        let isNotice = (author == "김동준")
-//        let json: [String: Any] = [
-//            "title": title,
-//            "content": content,
-//            "author": author,
-//            "isNotice": isNotice
-//        ]
-//
-//        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-//                self.fetchPostsFromServer()
-//            } else {
-//                print("❌ 글 등록 실패")
-//            }
-//        }.resume()
-//    }
-//
-//    func updatePost(id: Int, title: String, content: String, author: String) {
-//        guard let url = URL(string: "\(API.baseURL)/api/posts/\(id)") else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "PUT"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        let json: [String: Any] = [
-//            "title": title,
-//            "content": content,
-//            "author": author // ✅ 포함해야 서버에서 isNotice 여부 판단 가능
-//        ]
-//
-//        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-//                self.fetchPostsFromServer()
-//            } else {
-//                print("❌ 글 수정 실패")
-//            }
-//        }.resume()
-//    }
-//
-//
-//    func deletePost(id: Int) {
-//        guard let url = URL(string: "\(API.baseURL)/api/posts/\(id)") else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "DELETE"
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            DispatchQueue.main.async {
-//                self.posts.removeAll { $0.id == id }
-//            }
-//        }.resume()
-//    }
-//
-//    func addComment(postId: Int, comment: String) {
-//        guard let url = URL(string: "\(API.baseURL)/api/posts/board/\(postId)/comments") else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        let author = comment.components(separatedBy: ":").first ?? "익명"
-//        let content = comment.components(separatedBy: ":").dropFirst().joined(separator: ":").trimmingCharacters(in: .whitespaces)
-//
-//        let json: [String: Any] = ["author": author, "content": content]
-//        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-//                DispatchQueue.main.async {
-//                    self.posts = self.posts.map {
-//                        if $0.id == postId {
-//                            var updated = $0
-//                            updated.comments.append(comment)
-//                            return updated
-//                        } else {
-//                            return $0
-//                        }
-//                    }
-//                }
-//            } else {
-//                print("❌ 댓글 등록 실패")
-//            }
-//        }.resume()
-//    }
-//
-//    func deleteComment(postId: Int, comment: String) {
-//        guard let url = URL(string: "\(API.baseURL)/api/posts/board/\(postId)/comments") else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "DELETE"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        let author = comment.components(separatedBy: ":").first ?? ""
-//        let content = comment.components(separatedBy: ":").dropFirst().joined(separator: ":").trimmingCharacters(in: .whitespaces)
-//
-//        let body: [String: String] = [
-//            "author": author,
-//            "content": content
-//        ]
-//        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-//
-//        URLSession.shared.dataTask(with: request) { _, response, error in
-//            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-//                print("❌ 댓글 삭제 실패")
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                self.posts = self.posts.map {
-//                    if $0.id == postId {
-//                        var updated = $0
-//                        updated.comments.removeAll { $0 == comment }
-//                        return updated
-//                    } else {
-//                        return $0
-//                    }
-//                }
-//            }
-//        }.resume()
-//    }
-//
-//}
