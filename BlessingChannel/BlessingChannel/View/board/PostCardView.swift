@@ -4,6 +4,7 @@ import SwiftUI
 struct PostCardView: View {
     let post: BoardPost
     let currentUser: String
+    let isGuest: Bool 
     @Binding var activeReactionPostId: Int?
     @Binding var commentTexts: [Int: String]
     @Binding var selectedEmoji: [Int: String]
@@ -66,22 +67,22 @@ struct PostCardView: View {
                     .font(.caption)
                 }
             }
-
-            HStack {
-                TextField("댓글을 입력하세요", text: Binding(get: {
-                    commentTexts[post.id] ?? ""
-                }, set: { newVal in
-                    commentTexts[post.id] = newVal
-                }))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                Button("등록") {
-                    if let text = commentTexts[post.id], !text.isEmpty {
-                        onCommentAdd(post.id, text)
-                        commentTexts[post.id] = ""
+            if !isGuest {
+                HStack {
+                    TextField("댓글을 입력하세요", text: Binding(get: {
+                        commentTexts[post.id] ?? ""
+                    }, set: { newVal in
+                        commentTexts[post.id] = newVal
+                    }))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Button("등록") {
+                        if let text = commentTexts[post.id], !text.isEmpty {
+                            onCommentAdd(post.id, text)
+                            commentTexts[post.id] = ""
+                        }
                     }
-                }
-            }
+                }}
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))

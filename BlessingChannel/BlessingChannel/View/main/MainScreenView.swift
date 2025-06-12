@@ -99,7 +99,7 @@ struct MainScreenView: View {
                 .padding(.horizontal)
                 .padding(.bottom, 20)
                 .fullScreenCover(isPresented: $showBoard) {
-                    BoardMainView(currentUser: user.name)
+                    BoardMainView(user: user)
                 }
 
             }
@@ -133,7 +133,7 @@ struct MainScreenView: View {
             }
         }
         .fullScreenCover(isPresented: $showBoard) {
-            BoardMainView(currentUser: user.name)
+            BoardMainView(user: user)
         }
     }
 

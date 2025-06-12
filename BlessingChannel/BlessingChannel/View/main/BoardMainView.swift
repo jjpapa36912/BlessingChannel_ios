@@ -14,8 +14,8 @@ struct BoardMainView: View {
     @State private var selectedEmoji: [Int: String] = [:]
     @State private var selectedPostForEdit: BoardPost? = nil
     @State private var currentPage = 0
-
-    let currentUser: String
+    let user: User
+    var currentUser: String { user.name }
 
     var filteredPosts: [BoardPost] {
         let base = showMyPosts ? viewModel.posts.filter { $0.author == currentUser } : viewModel.posts
@@ -74,6 +74,7 @@ struct BoardMainView: View {
                             PostCardView(
                                 post: post,
                                 currentUser: currentUser,
+                                isGuest: user.isGuest, // 이 줄 추가
                                 activeReactionPostId: $activeReactionPostId,
                                 commentTexts: $commentTexts,
                                 selectedEmoji: $selectedEmoji,
