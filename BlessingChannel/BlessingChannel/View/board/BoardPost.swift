@@ -38,6 +38,6 @@ struct Comment: Identifiable, Codable {
     let author: String
     let content: String
     var likes: Int?
-    var emoji: String
+    var emoji: String?
 }
 
