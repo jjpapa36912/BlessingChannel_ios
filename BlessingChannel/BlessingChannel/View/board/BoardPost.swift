@@ -13,7 +13,7 @@ struct BoardPost: Codable, Identifiable {
     let createdAt: String
     var title: String
     var content: String
-    let likes: Int
+    let likes: Int?
     var comments: [Comment]
     var isNotice: Bool
 }
@@ -37,7 +37,7 @@ struct Comment: Identifiable, Codable {
     let id: Int
     let author: String
     let content: String
-    var likes: Int
+    var likes: Int?
     var emoji: String
 }
 

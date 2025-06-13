@@ -1,4 +1,7 @@
 
+
+
+
 import SwiftUI
 
 struct PostCardView: View {
@@ -18,6 +21,8 @@ struct PostCardView: View {
                 Text(post.title)
                     .font(.headline)
                     .bold()
+                    .foregroundColor(.black) // ✅ 제목 글자색 진하게
+
                 Spacer()
                 if post.isNotice {
                     Text("공지")
@@ -25,17 +30,21 @@ struct PostCardView: View {
                         .padding(4)
                         .background(Color.yellow.opacity(0.4))
                         .cornerRadius(4)
+                        .foregroundColor(.black) // ✅ 제목 글자색 진하게
+
                 }
             }
 
             Text(post.content)
                 .font(.body)
                 .foregroundColor(.primary)
+                .foregroundColor(.white) // ✅ 제목 글자색 진하게
+
 
             HStack {
                 Text("by \(post.author)")
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.gray) // ✅ 보조 텍스트는 연한 회색
                 Spacer()
                 Text(post.createdAt)
                     .font(.caption2)
@@ -49,6 +58,7 @@ struct PostCardView: View {
                     HStack {
                         Text("\(comment.author): \(comment.content)")
                             .font(.subheadline)
+                            .foregroundColor(.white) // ✅ 댓글도 진한 색으로
                         Spacer()
                         if comment.author == currentUser {
                             Button(action: {
@@ -85,6 +95,7 @@ struct PostCardView: View {
                 }}
         }
         .padding()
+        .background(Color(UIColor.systemGray6)) // ✅ 배경을 연회색으로
         .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
         .shadow(radius: 2)
         .padding(.vertical, 5)

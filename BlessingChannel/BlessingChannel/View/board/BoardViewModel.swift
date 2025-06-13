@@ -18,7 +18,14 @@ class BoardViewModel: ObservableObject {
         let pageToFetch = reset ? 0 : currentPage
         guard let url = URL(string: "\(API.baseURL)/api/posts/paged?page=\(pageToFetch)&size=10") else { return }
 
+        print("📡 게시글 목록 요청: page=\(pageToFetch)")
+
+        
         URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                        print("❌ 게시글 요청 실패: \(error.localizedDescription)")
+                        return
+                    }
             defer { self.isLoading = false }
 
             guard let data = data else {
@@ -62,7 +69,13 @@ class BoardViewModel: ObservableObject {
             let pageToFetch = reset ? 0 : currentPage
             guard let url = URL(string: "\(API.baseURL)/api/posts/paged?page=\(pageToFetch)&size=10") else { return }
 
+            print("📡 게시글 목록 요청: page=\(pageToFetch)")
+        
             URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                            print("❌ 게시글 요청 실패: \(error.localizedDescription)")
+                            return
+                        }
                 defer { self.isLoading = false }
 
                 guard let data = data else {

@@ -12,6 +12,19 @@ struct MainScreenView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
+                
+                // ✅ 알림 문구 삽입
+                    Text("""
+                    ※ 광고 시청은 보상을 제공하지 않습니다.
+                    ※ 광고 수익은 운영비를 제외하고 모두 기부에 사용됩니다.
+                    """)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                
+                
                 HStack {
                     Button(action: { withAnimation { showMenu.toggle() } }) {
                         Image(systemName: "line.horizontal.3")
@@ -41,9 +54,9 @@ struct MainScreenView: View {
                 }
                 .padding()
 
-                Button("정보 얻고 포인트 획득하기") {
+                Button("정보 보고 기부에 참여하기") {
                     if !canWatchRewardedAd() {
-                        print("❗ 오늘 보상형 광고 시청 횟수 초과 (최대 5회)")
+                        print("❗ 오늘 보상형 광고 시청 횟수 초과 (최대 15회)")
                         return
                     }
                     if let rootVC = UIApplication.shared.windows.first?.rootViewController {
@@ -173,7 +186,7 @@ struct MainScreenView: View {
         let today = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none)
         let key = "rewardedAdCount_\(today)"
         let count = UserDefaults.standard.integer(forKey: key)
-        return count < 5
+        return count < 15
     }
 
     func recordRewardedAdWatched() {

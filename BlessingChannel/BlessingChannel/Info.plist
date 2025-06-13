@@ -24,7 +24,7 @@
     </array>
     <key>GADApplicationIdentifier</key>
 <!--    <string>ca-app-pub-3940256099942544~1458002511</string>-->
-    <string>ca-app-pub-5025904812537246~2354387903</string>
+    <string>ca-app-pub-2190585582842197~4844452319</string>
     <!-- ✅ 도메인 http 예외 추가 -->
 
 <!--    <key>NSAppTransportSecurity</key>-->
@@ -40,6 +40,8 @@
 <!--            </dict>-->
 <!--        </dict>-->
 <!--    </dict>-->
+
+
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSExceptionDomains</key>

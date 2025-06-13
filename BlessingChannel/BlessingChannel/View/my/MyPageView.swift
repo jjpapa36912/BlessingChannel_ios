@@ -44,20 +44,20 @@ struct MyPageView: View {
                 .foregroundColor(.brown)
             
             // 🔹 포인트 및 누적 수익
-            Text("현재 포인트: \(point)P")
+            Text("현재 포인트: \(donation)P")
                 .font(.subheadline)
                 .foregroundColor(.black)
                 
             
-            // 🔹 쿠폰함 열기 버튼
-            Button("쿠폰함 열기") {
-                // TODO: 쿠폰함 이동 처리
-            }
-            .padding(.horizontal, 24)
-            .padding(.vertical, 10)
-            .background(Color.brown)
-            .foregroundColor(.white)
-            .cornerRadius(8)
+//            // 🔹 쿠폰함 열기 버튼
+//            Button("쿠폰함 열기") {
+//                // TODO: 쿠폰함 이동 처리
+//            }
+//            .padding(.horizontal, 24)
+//            .padding(.vertical, 10)
+//            .background(Color.brown)
+//            .foregroundColor(.white)
+//            .cornerRadius(8)
             
             // 🔹 랭킹 보드
             VStack(alignment: .leading, spacing: 4) {
@@ -71,35 +71,35 @@ struct MyPageView: View {
             }
             .padding(.top)
             
-            // 🔹 보상 버튼
-            Button("보상 받기 (100P 차감)") {
-                // TODO: 포인트 차감 및 보상 로직
-            }
-            .disabled(point < 100)
-            .padding(.horizontal, 24)
-            .padding(.vertical, 10)
-            .background(point >= 100 ? Color(hex: "#FFF4C2") : Color.gray.opacity(0.3))
-            .foregroundColor(.black)
-            .cornerRadius(20)
+//            // 🔹 보상 버튼
+//            Button("보상 받기 (100P 차감)") {
+//                // TODO: 포인트 차감 및 보상 로직
+//            }
+//            .disabled(point < 100)
+//            .padding(.horizontal, 24)
+//            .padding(.vertical, 10)
+//            .background(point >= 100 ? Color(hex: "#FFF4C2") : Color.gray.opacity(0.3))
+//            .foregroundColor(.black)
+//            .cornerRadius(20)
             
             Divider().padding(.top)
             
-            // 🔹 포인트 교환 이력
-            VStack(alignment: .leading) {
-                Text("📜 포인트 교환 이력")
-                    .fontWeight(.bold)
-                if redeemHistory.isEmpty {
-                    Text("아직 교환 내역이 없습니다.")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                } else {
-                    ForEach(redeemHistory.reversed(), id: \.self) { entry in
-                        Text("• \(entry)")
-                            .font(.footnote)
-                    }
-                }
-            }
-            .padding(.horizontal)
+//            // 🔹 포인트 교환 이력
+//            VStack(alignment: .leading) {
+//                Text("📜 포인트 교환 이력")
+//                    .fontWeight(.bold)
+//                if redeemHistory.isEmpty {
+//                    Text("아직 교환 내역이 없습니다.")
+//                        .font(.footnote)
+//                        .foregroundColor(.gray)
+//                } else {
+//                    ForEach(redeemHistory.reversed(), id: \.self) { entry in
+//                        Text("• \(entry)")
+//                            .font(.footnote)
+//                    }
+//                }
+//            }
+//            .padding(.horizontal)
             
             Spacer()
             
