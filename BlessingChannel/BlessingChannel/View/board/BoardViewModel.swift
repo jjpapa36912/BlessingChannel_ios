@@ -205,37 +205,144 @@ class BoardViewModel: ObservableObject {
         }.resume()
     }
 
-    func addComment(postId: Int, author: String, content: String) {
-        // 1. 로컬 UI 반영 먼저
+//    func addComment(postId: Int, author: String, content: String) {
+//        // 1. 로컬 UI 반영 먼저
+//        DispatchQueue.main.async {
+//            if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+//                let newComment = Comment(id: Int.random(in: 10_000...99_999), author: author, content: content, likes: 0, emoji: "")
+//                self.posts[index].comments.append(newComment)
+//            }
+//        }
+//
+//        // 2. 서버에 실제 요청 전송
+//        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments") else { return }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        let json: [String: Any] = ["author": author, "content": content]
+//        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+//
+//        URLSession.shared.dataTask(with: request) { _, response, _ in
+//            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+//                print("✅ 댓글 서버 등록 완료")
+//            } else {
+//                print("❌ 댓글 등록 실패: 서버와 불일치 가능성 있음")
+//            }
+//        }.resume()
+//    }
+    
+    func addComment(postId: Int, userId: String, userName: String, content: String) {
+        // 1. UI에 먼저 반영 (선택)
         DispatchQueue.main.async {
             if let index = self.posts.firstIndex(where: { $0.id == postId }) {
-                let newComment = Comment(id: Int.random(in: 10_000...99_999), author: author, content: content, likes: 0, emoji: "")
+                let newComment = Comment(
+                    id: Int.random(in: 10_000...99_999),
+                    author: userName,
+                    content: content,
+                    likes: 0,
+                    emoji: ""
+                )
                 self.posts[index].comments.append(newComment)
             }
         }
 
-        // 2. 서버에 실제 요청 전송
+        // 2. 서버 요청
         guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let json: [String: Any] = ["author": author, "content": content]
+        guard let userIdLong = Int64(userId) else {
+            print("❌ 유효하지 않은 userId: \(userId)")
+            return
+        }
+
+        let json: [String: Any] = [
+            "userId": userIdLong,
+            "content": content
+        ]
+
         request.httpBody = try? JSONSerialization.data(withJSONObject: json)
 
-        URLSession.shared.dataTask(with: request) { _, response, _ in
-            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                print("✅ 댓글 서버 등록 완료")
-            } else {
-                print("❌ 댓글 등록 실패: 서버와 불일치 가능성 있음")
+        URLSession.shared.dataTask(with: request) { data, response, _ in
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    print("✅ 댓글 서버 등록 완료")
+                } else {
+                    print("❌ 댓글 등록 실패 - 상태코드: \(httpResponse.statusCode)")
+                    if let data = data, let raw = String(data: data, encoding: .utf8) {
+                        print("📦 응답 내용: \(raw)")
+                    }
+                }
             }
         }.resume()
     }
 
+//    func addComment(postId: Int, userId: String, userName: String, content: String) {
+//        // 1. UI에 먼저 반영
+//        DispatchQueue.main.async {
+//            if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+//                let newComment = Comment(
+//                    id: Int.random(in: 10_000...99_999),
+//                    author: userName,
+//                    content: content,
+//                    likes: 0,
+//                    emoji: ""
+//                )
+//                self.posts[index].comments.append(newComment)
+//            }
+//        }
+//
+//        // 2. 서버 요청 전송
+//        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments") else { return }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        // ✅ userId를 숫자로 변환해서 보냄
+//        let json: [String: Any] = [
+//            "userId": Int(userId) ?? 0,
+//            "content": content
+//        ]
+//        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+//
+//        URLSession.shared.dataTask(with: request) { _, response, _ in
+//            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+//                print("✅ 댓글 서버 등록 완료")
+//            } else {
+//                print("❌ 댓글 등록 실패: 서버와 불일치 가능성 있음")
+//            }
+//        }.resume()
+//    }
 
-    func deleteComment(postId: Int, commentId: Int, author: String) {
-        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments/\(commentId)/with-auth?author=\(author)")
-else { return }
+
+
+//    func deleteComment(postId: Int, commentId: Int, author: String, userId: String) {
+//        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments/\(commentId)/with-auth?author=\(author)?userId=\(userId)")
+//else { return }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "DELETE"
+//
+//        URLSession.shared.dataTask(with: request) { _, response, _ in
+//            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+//                DispatchQueue.main.async {
+//                    if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+//                        self.posts[index].comments.removeAll { $0.id == commentId }
+//                    }
+//                }
+//            } else {
+//                print("❌ 댓글 삭제 실패")
+//            }
+//        }.resume()
+//    }
+    func deleteComment(postId: Int, commentId: Int, author: String, userId: String) {
+        // ⚠️ ? → & 로 수정
+        guard let url = URL(string: "\(API.baseURL)/api/posts/\(postId)/comments/\(commentId)?author=\(author)&userId=\(userId)") else {
+            print("❌ URL 생성 실패")
+            return
+        }
+
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
 
@@ -251,4 +358,5 @@ else { return }
             }
         }.resume()
     }
+
 }

@@ -55,7 +55,7 @@ struct LoginView: View {
             .padding()
         }
         Button(action: {
-            let guestUser = User(name: "게스트", isGuest: true)
+            let guestUser = User(id:"",name: "게스트", isGuest: true)
             navigateToMain(user: guestUser)
         }) {
             Text("그냥 한번 둘러볼래요")
@@ -70,6 +70,12 @@ struct LoginView: View {
         func handleAppleLogin(authResults: ASAuthorization) {
             if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
                 let name = credential.fullName?.givenName ?? "이름 없음"
+                let providerId = credential.user
+                let body = [
+                    "provider": "apple",
+                    "providerId": providerId,
+                    "name": name
+                ]
                 let email = credential.email ?? "이메일 없음"
 
                 print("✅ 애플 로그인 성공 → \(name), \(email)")
@@ -77,7 +83,9 @@ struct LoginView: View {
                 // 필요한 경우 서버 전송 로직 추가 가능
                 // sendAppleTokenToBackend(credential)
 
-                navigateToMain(user: User(name: name, isGuest: false))
+                postToServerLoginEndpoint(body: body) { user in
+                    navigateToMain(user: user) // ✅ 서버에서 받은 User(id, name 등)로 이동
+                }
             }
         }
 
@@ -103,10 +111,19 @@ struct LoginView: View {
             }
 
             let name = user.profile?.name ?? "이름 없음"
+            let providerId = user.userID ?? ""
+            let body = [
+                "provider": "google",
+                "providerId": providerId,
+                "name": name
+            ]
+            
             let email = user.profile?.email ?? "이메일 없음"
             print("✅ 구글 로그인 성공 → \(name), \(email)")
 
-            navigateToMain(user: User(name: name, isGuest: false))
+            postToServerLoginEndpoint(body: body) { user in
+                navigateToMain(user: user) // ✅ 서버에서 받은 User(id, name 등)로 이동
+            }
         }
     }
 
@@ -131,6 +148,41 @@ struct LoginView: View {
 //            navigateToMain(user: User(name: name))
 //        }
     }
+
+func postToServerLoginEndpoint(body: [String: Any], completion: @escaping (User) -> Void) {
+    guard let url = URL(string: "\(API.baseURL)/api/auth/social-login") else { return }
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+    URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+            print("❌ 요청 실패: \(error.localizedDescription)")
+            return
+        }
+
+        guard let data = data else {
+            print("❌ 응답 없음")
+            return
+        }
+
+        do {
+            // 👇 디코딩 실패 시 로그
+            let user = try JSONDecoder().decode(User.self, from: data)
+            completion(user)
+        } catch {
+            print("❌ 디코딩 실패1111111: \(error.localizedDescription)")
+            if let rawString = String(data: data, encoding: .utf8) {
+                print("⚠️ 응답 원문: \(rawString)")
+            }
+        }
+    }.resume()
+}
+
+
+
 
     // MARK: - Kakao 로그인
     func handleKakaoLogin() {
@@ -166,8 +218,17 @@ struct LoginView: View {
             }
 
             let name = user?.kakaoAccount?.profile?.nickname ?? "이름 없음"
-            let email = user?.kakaoAccount?.email ?? "이메일 없음"
-            navigateToMain(user: User(name: name, isGuest: false))
+            let providerId = "\(user?.id ?? 0)"
+            let body = [
+                "provider": "kakao",
+                "providerId": providerId,
+                "name": name
+            ]
+            
+            
+            postToServerLoginEndpoint(body: body) { user in
+                navigateToMain(user: user) // ✅ 서버에서 받은 User(id, name 등)로 이동
+            }
         }
     }
 

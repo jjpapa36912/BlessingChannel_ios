@@ -33,11 +33,17 @@ struct CommentRequest: Codable {
     let author: String
     let content: String
 }
-struct Comment: Identifiable, Codable {
-    let id: Int
-    let author: String
+//struct Comment: Identifiable, Codable {
+//    let id: Int
+//    let author: String
+//    let content: String
+//    var likes: Int?
+//    var emoji: String?
+//}
+struct Comment: Identifiable, Codable, Hashable {
+    let id: Int         // ✅ 중복 없이 안정적
+    let author: String?
     let content: String
     var likes: Int?
     var emoji: String?
 }
-

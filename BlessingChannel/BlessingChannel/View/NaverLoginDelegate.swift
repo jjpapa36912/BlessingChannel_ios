@@ -46,14 +46,29 @@ class NaverLoginDelegate: NSObject, NaverThirdPartyLoginConnectionDelegate {
                    print("📦 네이버 응답 전체: \(json ?? [:])") // ✅ 전체 출력 추가
 
                    if let response = json?["response"] as? [String: Any] {
-                       let name = response["nickname"] as? String
-                           ?? response["name"] as? String
-                           ?? "이름 없음"
+                       let rawName = response["name"] as? String ?? ""
+                       let nickname = response["nickname"] as? String
+                       let name = nickname?.removingPercentEncoding ?? rawName.removingPercentEncoding ?? "이름 없음"
+                       
+                       let providerId = String(describing: response["id"] ?? "")
 
                        print("✅ [NAVER] 사용자 이름: \(name)")
-                       DispatchQueue.main.async {
-                           self.navigateToMain(user: User(name: name, isGuest: false))
+                       print("✅ [NAVER] providerId: \(providerId)")
+
+                       let body: [String: Any] = [
+                           "provider": "naver",
+                           "providerId": providerId,
+                           "name": name
+                       ]
+
+                       postToServerLoginEndpoint(body: body) { user in
+                           DispatchQueue.main.async {
+                               self.navigateToMain(user: user) // ✅ 서버에서 내려준 진짜 User(id: Long, name: String ...)
+                           }
                        }
+
+                       print("✅ [NAVER] 사용자 이름: \(name)")
+                       
                    } else {
                        print("❌ JSON 파싱 실패: 'response' 키 없음")
                    }

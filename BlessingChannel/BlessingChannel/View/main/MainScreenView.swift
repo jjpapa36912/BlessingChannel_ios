@@ -123,6 +123,17 @@ struct MainScreenView: View {
 
             }
 
+            // 1. 먼저 배경 클릭 감지용 뷰를 추가 (메뉴 아래에 위치해야 메뉴가 보임)
+                if showMenu {
+                    Color.black.opacity(0.001)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation {
+                                showMenu = false
+                            }
+                        }
+                }
+            
             if showMenu {
                 VStack(alignment: .leading, spacing: 16) {
                     if user.isGuest {

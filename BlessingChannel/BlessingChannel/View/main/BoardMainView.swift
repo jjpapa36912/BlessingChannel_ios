@@ -16,6 +16,8 @@ struct BoardMainView: View {
     @State private var currentPage = 0
     let user: User
     var currentUser: String { user.name }
+    var currentUserId: String { user.id }
+
 
     var filteredPosts: [BoardPost] {
         let base = showMyPosts ? viewModel.posts.filter { $0.author == currentUser } : viewModel.posts
@@ -73,16 +75,17 @@ struct BoardMainView: View {
                         ForEach(filteredPosts) { post in
                             PostCardView(
                                 post: post,
+                                currentUserId: user.id.description,
                                 currentUser: currentUser,
                                 isGuest: user.isGuest, // 이 줄 추가
                                 activeReactionPostId: $activeReactionPostId,
                                 commentTexts: $commentTexts,
                                 selectedEmoji: $selectedEmoji,
-                                onCommentAdd: { postId, text in
-                                    viewModel.addComment(postId: postId, author: currentUser, content: text) // ✅ 순서 일치
-                                },
-                                onCommentDelete: { postId, commentId, author in
-                                    viewModel.deleteComment(postId: postId, commentId: commentId, author: author)
+                                onCommentAdd: { postId, userId, userName, content in
+                                        viewModel.addComment(postId: postId, userId: userId, userName: userName, content: content)
+                                    },
+                                onCommentDelete: { postId, commentId, author, userId in
+                                    viewModel.deleteComment(postId: postId, commentId: commentId, author: author, userId: userId)
                                 },
                                 onEmojiReact: { postId, commentId, emoji in
                                     viewModel.reactToComment(postId: postId, commentId: commentId, emoji: emoji, author: currentUser)

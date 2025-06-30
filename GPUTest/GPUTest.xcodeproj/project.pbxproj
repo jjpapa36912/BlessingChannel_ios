@@ -1,0 +1,173 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXFileReference section */
+		0AF395652E100F6700BE3F58 /* GPUTest.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = GPUTest.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0AF395672E100F6700BE3F58 /* GPUTest */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GPUTest;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXGroup section */
+		0AF3955E2E100F6700BE3F58 = {
+			isa = PBXGroup;
+			children = (
+				0AF395672E100F6700BE3F58 /* GPUTest */,
+				0AF395662E100F6700BE3F58 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0AF395662E100F6700BE3F58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0AF395652E100F6700BE3F58 /* GPUTest.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0AF395642E100F6700BE3F58 /* GPUTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0AF3956C2E100F6700BE3F58 /* Build configuration list for PBXNativeTarget "GPUTest" */;
+			buildPhases = (
+				0AF395632E100F6700BE3F58 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0AF395672E100F6700BE3F58 /* GPUTest */,
+			);
+			name = GPUTest;
+			packageProductDependencies = (
+			);
+			productName = GPUTest;
+			productReference = 0AF395652E100F6700BE3F58 /* GPUTest.metallib */;
+			productType = "com.apple.product-type.metal-library";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0AF3955F2E100F6700BE3F58 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					0AF395642E100F6700BE3F58 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+				};
+			};
+			buildConfigurationList = 0AF395622E100F6700BE3F58 /* Build configuration list for PBXProject "GPUTest" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0AF3955E2E100F6700BE3F58;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0AF395662E100F6700BE3F58 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0AF395642E100F6700BE3F58 /* GPUTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0AF395632E100F6700BE3F58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0AF3956A2E100F6700BE3F58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEVELOPMENT_TEAM = 9KDUS59PR5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0AF3956B2E100F6700BE3F58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEVELOPMENT_TEAM = 9KDUS59PR5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0AF3956D2E100F6700BE3F58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9KDUS59PR5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "";
+			};
+			name = Debug;
+		};
+		0AF3956E2E100F6700BE3F58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9KDUS59PR5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0AF395622E100F6700BE3F58 /* Build configuration list for PBXProject "GPUTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AF3956A2E100F6700BE3F58 /* Debug */,
+				0AF3956B2E100F6700BE3F58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0AF3956C2E100F6700BE3F58 /* Build configuration list for PBXNativeTarget "GPUTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AF3956D2E100F6700BE3F58 /* Debug */,
+				0AF3956E2E100F6700BE3F58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0AF3955F2E100F6700BE3F58 /* Project object */;
+}
