@@ -12,13 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import Foundation
+#import <UIKit/UIKit.h>
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-extension Date {
-    public func toSeconds() -> Int64 {
-        return Int64(self.timeIntervalSince1970)
-    }
-}
+//! Project version number for KakaoSDKTemplate.
+FOUNDATION_EXPORT double KakaoSDKTemplateVersionNumber;
+
+//! Project version string for KakaoSDKTemplate.
+FOUNDATION_EXPORT const unsigned char KakaoSDKTemplateVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <KakaoSDKTemplate/PublicHeader.h>
+
+

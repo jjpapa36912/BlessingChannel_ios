@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D9FA6A40A82A3427691DEEECC5E8AF74"
-               BuildableName = "KakaoSDKCommon.bundle"
-               BlueprintName = "KakaoSDKCommon-KakaoSDKCommon"
+               BlueprintIdentifier = "F1A7357D2A67F44CF3FBB03F86D5EE1A"
+               BuildableName = "KakaoSDKTemplate.framework"
+               BlueprintName = "KakaoSDKTemplate"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

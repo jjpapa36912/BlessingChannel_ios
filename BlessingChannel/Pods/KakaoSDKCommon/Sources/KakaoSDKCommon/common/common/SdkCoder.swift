@@ -14,34 +14,18 @@
 
 import Foundation
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
 public class SdkJSONEncoder : JSONEncoder {
     public static var `default`: SdkJSONEncoder { return SdkJSONEncoder() }
     public static var `custom`: SdkJSONEncoder { return SdkJSONEncoder(useCustomStrategy:true) }
-    public static var `customDate`: SdkJSONEncoder { return SdkJSONEncoder(useCustomStrategy:true, useDateFormatterStrategy:true) }
-        
-   init(useCustomStrategy:Bool = false, useDateFormatterStrategy:Bool = false) {
+    
+   init(useCustomStrategy:Bool = false) {
         super.init()
         if (useCustomStrategy) {
             self.keyEncodingStrategy = .convertToSnakeCase
         }
-       
-       if (useDateFormatterStrategy) {
-           self.keyEncodingStrategy = .convertToSnakeCase
-           let formatter = DateFormatter()
-           formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-           formatter.locale = Locale.current
-           formatter.timeZone = TimeZone(abbreviation: "UTC")
-           self.dateEncodingStrategy = .formatted(formatter)
-       }
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
 public class SdkJSONDecoder : JSONDecoder {
     public static var `default`: SdkJSONDecoder { return SdkJSONDecoder() }
     public static var `custom`: SdkJSONDecoder { return SdkJSONDecoder(useCustomStrategy:true) }

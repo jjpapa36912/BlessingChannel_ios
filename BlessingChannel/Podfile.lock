@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.9.1)
+  - Alamofire (5.10.2)
   - AppAuth (1.7.6):
     - AppAuth/Core (= 1.7.6)
     - AppAuth/ExternalUserAgent (= 1.7.6)
@@ -17,25 +17,32 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (2.3.0)
-  - KakaoSDKAuth (2.22.7):
-    - KakaoSDKCommon (= 2.22.7)
-  - KakaoSDKCommon (2.22.7):
-    - KakaoSDKCommon/Common (= 2.22.7)
-    - KakaoSDKCommon/Network (= 2.22.7)
-  - KakaoSDKCommon/Common (2.22.7)
-  - KakaoSDKCommon/Network (2.22.7):
-    - Alamofire (~> 5.9.0)
-    - KakaoSDKCommon/Common (= 2.22.7)
-  - KakaoSDKUser (2.22.7):
-    - KakaoSDKAuth (= 2.22.7)
+  - KakaoSDKAuth (2.10.1):
+    - KakaoSDKCommon (= 2.10.1)
+  - KakaoSDKCommon (2.10.1):
+    - KakaoSDKCommon/Common (= 2.10.1)
+    - KakaoSDKCommon/Network (= 2.10.1)
+  - KakaoSDKCommon/Common (2.10.1)
+  - KakaoSDKCommon/Network (2.10.1):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.10.1)
+  - KakaoSDKLink (2.10.1):
+    - KakaoSDKCommon (= 2.10.1)
+    - KakaoSDKTemplate (= 2.10.1)
+  - KakaoSDKTemplate (2.10.1):
+    - KakaoSDKCommon/Common (= 2.10.1)
+  - KakaoSDKUser (2.10.1):
+    - KakaoSDKAuth (= 2.10.1)
   - naveridlogin-sdk-ios (4.2.3)
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
   - GoogleSignIn (~> 6.2.0)
-  - KakaoSDKAuth
-  - KakaoSDKCommon
-  - KakaoSDKUser
+  - KakaoSDKAuth (= 2.10.1)
+  - KakaoSDKCommon (= 2.10.1)
+  - KakaoSDKLink (= 2.10.1)
+  - KakaoSDKTemplate
+  - KakaoSDKUser (= 2.10.1)
   - naveridlogin-sdk-ios
 
 SPEC REPOS:
@@ -49,22 +56,26 @@ SPEC REPOS:
     - GTMSessionFetcher
     - KakaoSDKAuth
     - KakaoSDKCommon
+    - KakaoSDKLink
+    - KakaoSDKTemplate
     - KakaoSDKUser
     - naveridlogin-sdk-ios
 
 SPEC CHECKSUMS:
-  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   Google-Mobile-Ads-SDK: 6df9aadcee32bce0ff05bcad56ef2c88a4a5e82b
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GoogleUserMessagingPlatform: f8d0cdad3ca835406755d0a69aa634f00e76d576
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
-  KakaoSDKAuth: 45204252ff7c379c0f86c5573f97ec36885afca0
-  KakaoSDKCommon: 132164a6bac8bcd3a4346d3bf777f34f8f39fdca
-  KakaoSDKUser: 4c9cf1da78710d19d0b2c2dd32d1a44c544cdfa4
+  KakaoSDKAuth: b4fec62192c2ac8a9375847f666c0932e38afeb5
+  KakaoSDKCommon: 4989e3bae5f4884903bc1df7134e13d0e903d587
+  KakaoSDKLink: 0cdc82d96a693e41cc43cbc429a5b73be57cc2dd
+  KakaoSDKTemplate: de64dbf7b95c3c95abd91cb38b5c0907f45d3563
+  KakaoSDKUser: 5c5fd4b5864e8b5ac9587fdbb473daf2fa675abf
   naveridlogin-sdk-ios: d9d46d02119d303023d7000cd5963864d5bb89e5
 
-PODFILE CHECKSUM: 919a71020fb01bc1509b8d03a3ef269c5e056aa9
+PODFILE CHECKSUM: e02cda07859d37d2b8b9b986a7a7223c3ecd5aca
 
 COCOAPODS: 1.16.2

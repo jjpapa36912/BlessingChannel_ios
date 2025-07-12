@@ -14,42 +14,64 @@
 
 import Foundation
 import UIKit
+import Alamofire
 import KakaoSDKCommon
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
 public let AUTH = Auth.shared
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
 public class Auth {
+    let sdkVersionKey = "com.kakao.sdk.version"
     static public let retryTokenRefreshCount = 3
     static public let shared = Auth()
     
     public var tokenManager: TokenManagable
     
-    init(tokenManager : TokenManagable = TokenManager.manager) {
+    public init(tokenManager : TokenManagable = TokenManager.manager) {
         self.tokenManager = tokenManager
         
+        initSession()
+
         if tokenManager is KakaoSDKAuth.TokenManager {
             MigrateManager.checkSdkVersionForMigration()
-        }        
-        TokenRefresher.shared.registTokenRefresher()
+        }
     }
-}
-
-extension Auth {
-    /// 토큰 저장소 직접 지정, `TokenManageable`을 구현한 사용자 정의 토큰 매니저 설정 가능 \
-    /// Set the custom token manager that implements `TokenManageable`
+    
+    func initSession() {
+        let interceptor = Interceptor(adapter: AuthRequestAdapter(), retrier: AuthRequestRetrier())
+        let authApiSessionConfiguration : URLSessionConfiguration = URLSessionConfiguration.default
+        authApiSessionConfiguration.tlsMinimumSupportedProtocol = .tlsProtocol12
+        API.addSession(type: .AuthApi, session: Session(configuration: authApiSessionConfiguration, interceptor: interceptor))
+        
+        let rxAuthApiSessionConfiguration : URLSessionConfiguration = URLSessionConfiguration.default
+        rxAuthApiSessionConfiguration.tlsMinimumSupportedProtocol = .tlsProtocol12
+        API.addSession(type: .RxAuthApi, session: Session(configuration: rxAuthApiSessionConfiguration, interceptor: AuthRequestAdapter()))
+        
+        SdkLog.d(">>>> \(API.sessions)")
+    }
+    
+    /// ## 커스텀 토큰 관리자
+    /// TokenManagable 프로토콜을 구현하여 직접 토큰 관리자를 구현할 수 있습니다.
     public func setTokenManager(_ tokenManager: TokenManagable = TokenManager.manager) {
         self.tokenManager = tokenManager
     }
-}
-
-extension Auth {    
-    public func checkMigration() {
-        //nop
+    
+    public func responseData(_ HTTPMethod: Alamofire.HTTPMethod,
+                             _ url: String,
+                             parameters: [String: Any]? = nil,
+                             headers: [String: String]? = nil,
+                             apiType: ApiType,
+                             logging: Bool = true,
+                             completion: @escaping (HTTPURLResponse?, Data?, Error?) -> Void) {
+        
+        API.responseData(HTTPMethod, url, parameters: parameters, headers: headers, sessionType: .AuthApi, apiType: apiType, logging: logging, completion: completion)
+    }
+    
+    public func upload(_ HTTPMethod: Alamofire.HTTPMethod,
+                       _ url: String,
+                       images: [UIImage?] = [],
+                       headers: [String: String]? = nil,
+                       apiType: ApiType,
+                       completion: @escaping (HTTPURLResponse?, Data?, Error?) -> Void) {
+        API.upload(HTTPMethod, url, images:images, headers: headers, apiType: apiType, completion: completion)
     }
 }

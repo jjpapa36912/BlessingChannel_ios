@@ -8,6 +8,14 @@ struct MainScreenView: View {
     @State private var showMenu = false
     @StateObject private var adManager = RewardedAdManager()
     @State private var showBoard = false
+    @State private var showReservationHelper = false
+    @State private var showYouTubeHelper = false
+    @State private var showCoupangHelper = false
+    @State private var showKakaoHelper = false
+
+
+
+
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -123,9 +131,64 @@ struct MainScreenView: View {
 //
 //                        fetchTotalDonation()  // ✅ 이건 무조건 실행
 //                }
+                
+                // 네이버 예약 버튼
+                // 네이버 예약 버튼
+                Button("🗣️ 네이버 예약하기") {
+                    withAnimation {
+                        showReservationHelper = true
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.green)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .padding(.horizontal)
+
+                // ✅ 여백 추가
+                .padding(.top, 8)
+
+                Button("🎬 유튜브 검색하기") {
+                    withAnimation {
+                        showYouTubeHelper = true
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.red)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .padding(.top, 8)
+
+                Button("🛒 쿠팡 검색하기") {
+                    withAnimation {
+                        showCoupangHelper = true
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.purple)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .padding(.top, 8)
+
+                Button("💬 카카오톡 메시지 보내기") {
+                    withAnimation {
+                        showKakaoHelper = true
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.orange)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .padding(.top, 8)
 
                 Button("게시판") {
-                    
                     print("📋 게시판 버튼 클릭됨")
                     showBoard = true
                 }
@@ -135,11 +198,95 @@ struct MainScreenView: View {
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .padding(.horizontal)
+                .padding(.top, 8)
                 .padding(.bottom, 20)
                 .fullScreenCover(isPresented: $showBoard) {
                     BoardMainView(user: user)
                 }
 
+
+            }
+            // ✅ 네이버 예약 오버레이 뷰
+               if showReservationHelper {
+                   Color.black.opacity(0.001)
+                       .ignoresSafeArea()
+                       .onTapGesture {
+                           withAnimation {
+                               showReservationHelper = false
+                           }
+                       }
+
+                   VStack {
+                       ReservationHelperView(showReservationHelper: $showReservationHelper)
+                           .frame(maxHeight: UIScreen.main.bounds.height * 0.85)
+                           .background(Color.white)
+                           .cornerRadius(20)
+                           .shadow(radius: 10)
+                           .padding()
+                   }
+                   .transition(.move(edge: .bottom))
+               }
+            
+            // 유튜브 검색
+            if showYouTubeHelper {
+                Color.black.opacity(0.001)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            showYouTubeHelper = false
+                        }
+                    }
+
+                VStack {
+                    YouTubeHelperView(showYouTubeHelper: $showYouTubeHelper)
+                        .frame(maxHeight: UIScreen.main.bounds.height * 0.85)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
+                        .padding()
+                }
+                .transition(.move(edge: .bottom))
+            }
+
+                //쿠팡 검색
+            if showCoupangHelper {
+                Color.black.opacity(0.001)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            showCoupangHelper = false
+                        }
+                    }
+
+                VStack {
+                    CoupangHelperView(showCoupangHelper: $showCoupangHelper)
+                        .frame(maxHeight: UIScreen.main.bounds.height * 0.85)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
+                        .padding()
+                }
+                .transition(.move(edge: .bottom))
+            }
+            // 카카오톡 메세지 보내기
+            if showKakaoHelper {
+                Color.black.opacity(0.001)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            showKakaoHelper = false
+                        }
+                    }
+
+                VStack {
+                    KakaoHelperView(showKakaoHelper: $showKakaoHelper)
+                        .frame(maxHeight: UIScreen.main.bounds.height * 0.85)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
+                        .padding()
+                }
+                .transition(.move(edge: .bottom))
             }
 
             // 1. 먼저 배경 클릭 감지용 뷰를 추가 (메뉴 아래에 위치해야 메뉴가 보임)

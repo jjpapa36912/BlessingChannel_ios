@@ -2,9 +2,11 @@ platform :ios, '13.0'
 
 target 'BlessingChannel' do
   use_frameworks!
-  pod 'KakaoSDKCommon'
-  pod 'KakaoSDKAuth'
-  pod 'KakaoSDKUser'
+  pod 'KakaoSDKCommon', '2.10.1'
+  pod 'KakaoSDKAuth', '2.10.1'
+  pod 'KakaoSDKUser', '2.10.1'
+  pod 'KakaoSDKLink', '2.10.1'
+   pod 'KakaoSDKTemplate'
   pod 'GoogleSignIn', '~>6.2.0'
   pod 'naveridlogin-sdk-ios'
   pod 'Google-Mobile-Ads-SDK'

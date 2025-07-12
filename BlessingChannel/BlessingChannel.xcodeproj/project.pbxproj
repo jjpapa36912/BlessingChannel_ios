@@ -36,6 +36,11 @@
 		0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0D2DE342420014B7AA /* Color+Extension.swift */; };
 		0AA77C102DE342590014B7AA /* BlessingChannelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */; };
 		0AF3993C2E22519B00BE3F58 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AF3993B2E22519B00BE3F58 /* Config.plist */; };
+		0AF3993F2E225D9600BE3F58 /* ReservationHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF3993E2E225D9600BE3F58 /* ReservationHelperView.swift */; };
+		0AF399412E225ED200BE3F58 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF399402E225ED200BE3F58 /* SpeechRecognizer.swift */; };
+		0AF399442E2260D600BE3F58 /* YouTubeHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF399432E2260D600BE3F58 /* YouTubeHelperView.swift */; };
+		0AF399472E2262EC00BE3F58 /* CoupangHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF399462E2262EC00BE3F58 /* CoupangHelperView.swift */; };
+		0AF3994A2E2263DE00BE3F58 /* KakaoHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF399492E2263DE00BE3F58 /* KakaoHelperView.swift */; };
 		0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */; };
 		0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */; };
 		0AF74C932DF3F29C00D3B1AB /* BoardPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */; };
@@ -99,6 +104,11 @@
 		0AA77C0D2DE342420014B7AA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlessingChannelApp.swift; sourceTree = "<group>"; };
 		0AF3993B2E22519B00BE3F58 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		0AF3993E2E225D9600BE3F58 /* ReservationHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationHelperView.swift; sourceTree = "<group>"; };
+		0AF399402E225ED200BE3F58 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		0AF399432E2260D600BE3F58 /* YouTubeHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeHelperView.swift; sourceTree = "<group>"; };
+		0AF399462E2262EC00BE3F58 /* CoupangHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangHelperView.swift; sourceTree = "<group>"; };
+		0AF399492E2263DE00BE3F58 /* KakaoHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoHelperView.swift; sourceTree = "<group>"; };
 		0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedUser.swift; sourceTree = "<group>"; };
 		0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 		0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPost.swift; sourceTree = "<group>"; };
@@ -164,6 +174,10 @@
 		0A44E04C2DE4A1EC00E240CA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0AF399482E2263D300BE3F58 /* KakaoHelper */,
+				0AF399452E2262E100BE3F58 /* CoupangHelper */,
+				0AF399422E2260B700BE3F58 /* YouTubeHelper */,
+				0AF3993D2E225D8500BE3F58 /* NaverReservation */,
 				0AF74C972DF3F2EA00D3B1AB /* my */,
 				0AF74C962DF3F2DD00D3B1AB /* main */,
 				0AF74C8D2DF3F20700D3B1AB /* board */,
@@ -265,8 +279,41 @@
 			isa = PBXGroup;
 			children = (
 				0AA77C0D2DE342420014B7AA /* Color+Extension.swift */,
+				0AF399402E225ED200BE3F58 /* SpeechRecognizer.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		0AF3993D2E225D8500BE3F58 /* NaverReservation */ = {
+			isa = PBXGroup;
+			children = (
+				0AF3993E2E225D9600BE3F58 /* ReservationHelperView.swift */,
+			);
+			path = NaverReservation;
+			sourceTree = "<group>";
+		};
+		0AF399422E2260B700BE3F58 /* YouTubeHelper */ = {
+			isa = PBXGroup;
+			children = (
+				0AF399432E2260D600BE3F58 /* YouTubeHelperView.swift */,
+			);
+			path = YouTubeHelper;
+			sourceTree = "<group>";
+		};
+		0AF399452E2262E100BE3F58 /* CoupangHelper */ = {
+			isa = PBXGroup;
+			children = (
+				0AF399462E2262EC00BE3F58 /* CoupangHelperView.swift */,
+			);
+			path = CoupangHelper;
+			sourceTree = "<group>";
+		};
+		0AF399482E2263D300BE3F58 /* KakaoHelper */ = {
+			isa = PBXGroup;
+			children = (
+				0AF399492E2263DE00BE3F58 /* KakaoHelperView.swift */,
+			);
+			path = KakaoHelper;
 			sourceTree = "<group>";
 		};
 		0AF74C8D2DF3F20700D3B1AB /* board */ = {
@@ -532,13 +579,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -553,13 +596,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -596,13 +635,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -617,13 +652,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -644,10 +675,14 @@
 				0A6E23C82DF5CFBF005D3136 /* BoardMainView.swift in Sources */,
 				0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */,
 				0A6E23CA2DF5D185005D3136 /* PostCardView.swift in Sources */,
+				0AF399472E2262EC00BE3F58 /* CoupangHelperView.swift in Sources */,
 				0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */,
 				0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */,
 				0A6907992DEC839F003F748C /* BannerAdView.swift in Sources */,
+				0AF399412E225ED200BE3F58 /* SpeechRecognizer.swift in Sources */,
 				0A44E04E2DE4A1F700E240CA /* MainScreenView.swift in Sources */,
+				0AF399442E2260D600BE3F58 /* YouTubeHelperView.swift in Sources */,
+				0AF3993F2E225D9600BE3F58 /* ReservationHelperView.swift in Sources */,
 				0A44E04B2DE4A1CD00E240CA /* User.swift in Sources */,
 				0A6907972DEC8378003F748C /* RewardedAdManager.swift in Sources */,
 				0AA77C0B2DE342150014B7AA /* LoginView.swift in Sources */,
@@ -659,6 +694,7 @@
 				0A44E0522DE4A22E00E240CA /* NavigationBarView.swift in Sources */,
 				0A02C11E2DE94D1B00A03F04 /* NaverLoginDelegate.swift in Sources */,
 				0AF74C952DF3F2B800D3B1AB /* PostFormView.swift in Sources */,
+				0AF3994A2E2263DE00BE3F58 /* KakaoHelperView.swift in Sources */,
 				0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
