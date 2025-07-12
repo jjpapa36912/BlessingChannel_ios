@@ -60,47 +60,98 @@ class BoardViewModel: ObservableObject {
         fetchNextPage(reset: true)
     }
 
-    
     func fetchPostsFromServer(reset: Bool = false) {
-            if isLoading || (!reset && !hasMorePages) { return }
+        if isLoading || (!reset && !hasMorePages) { return }
 
-            isLoading = true
-
-            let pageToFetch = reset ? 0 : currentPage
-            guard let url = URL(string: "\(API.baseURL)/api/posts/paged?page=\(pageToFetch)&size=10") else { return }
-
-            print("📡 게시글 목록 요청: page=\(pageToFetch)")
-        
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                            print("❌ 게시글 요청 실패: \(error.localizedDescription)")
-                            return
-                        }
-                defer { self.isLoading = false }
-
-                guard let data = data else {
-                    print("❌ 데이터 없음")
-                    return
-                }
-
-                do {
-                    let postList = try JSONDecoder().decode([BoardPost].self, from: data)
-                    DispatchQueue.main.async {
-                        if reset {
-                            self.posts = postList
-                            self.currentPage = 1
-                        } else {
-                            self.posts += postList
-                            self.currentPage += 1
-                        }
-                        self.hasMorePages = !postList.isEmpty
-                    }
-                } catch {
-                    print("❌ 디코딩 실패: \(error)")
-                    print("🔥 응답 원문: \(String(data: data, encoding: .utf8) ?? "N/A")")
-                }
-            }.resume()
+        DispatchQueue.main.async {
+            self.isLoading = true
         }
+
+        let pageToFetch = reset ? 0 : currentPage
+        guard let url = URL(string: "\(API.baseURL)/api/posts/paged?page=\(pageToFetch)&size=10") else { return }
+
+        print("📡 게시글 목록 요청: page=\(pageToFetch)")
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("❌ 게시글 요청 실패: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                }
+                return
+            }
+
+            guard let data = data else {
+                print("❌ 데이터 없음")
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                }
+                return
+            }
+
+            do {
+                let postList = try JSONDecoder().decode([BoardPost].self, from: data)
+                DispatchQueue.main.async {
+                    if reset {
+                        self.posts = postList
+                        self.currentPage = 1
+                    } else {
+                        self.posts += postList
+                        self.currentPage += 1
+                    }
+                    self.hasMorePages = !postList.isEmpty
+                    self.isLoading = false  // ✅ UI 갱신 마무리
+                }
+            } catch {
+                print("❌ 디코딩 실패: \(error)")
+                print("🔥 응답 원문: \(String(data: data, encoding: .utf8) ?? "N/A")")
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                }
+            }
+        }.resume()
+    }
+
+//    func fetchPostsFromServer(reset: Bool = false) {
+//            if isLoading || (!reset && !hasMorePages) { return }
+//
+//            isLoading = true
+//
+//            let pageToFetch = reset ? 0 : currentPage
+//            guard let url = URL(string: "\(API.baseURL)/api/posts/paged?page=\(pageToFetch)&size=10") else { return }
+//
+//            print("📡 게시글 목록 요청: page=\(pageToFetch)")
+//        
+//            URLSession.shared.dataTask(with: url) { data, response, error in
+//                if let error = error {
+//                            print("❌ 게시글 요청 실패: \(error.localizedDescription)")
+//                            return
+//                        }
+//                defer { self.isLoading = false }
+//
+//                guard let data = data else {
+//                    print("❌ 데이터 없음")
+//                    return
+//                }
+//
+//                do {
+//                    let postList = try JSONDecoder().decode([BoardPost].self, from: data)
+//                    DispatchQueue.main.async {
+//                        if reset {
+//                            self.posts = postList
+//                            self.currentPage = 1
+//                        } else {
+//                            self.posts += postList
+//                            self.currentPage += 1
+//                        }
+//                        self.hasMorePages = !postList.isEmpty
+//                    }
+//                } catch {
+//                    print("❌ 디코딩 실패: \(error)")
+//                    print("🔥 응답 원문: \(String(data: data, encoding: .utf8) ?? "N/A")")
+//                }
+//            }.resume()
+//        }
 
     @Published var hasMorePages: Bool = true
 

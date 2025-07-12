@@ -14,7 +14,7 @@ struct DonationProgressView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("현재 모금액: \(current)원 / \(goal)원")
+            Text("누적 참여 기록: \(current)❤️ / \(goal)❤️")
                 .fontWeight(.bold)
                 .foregroundColor(.brown)
 

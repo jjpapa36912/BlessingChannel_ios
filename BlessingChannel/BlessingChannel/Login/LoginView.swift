@@ -69,16 +69,43 @@ struct LoginView: View {
     // MARK: - Apple 로그인 처리
         func handleAppleLogin(authResults: ASAuthorization) {
             if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
-                let name = credential.fullName?.givenName ?? "이름 없음"
-                let providerId = credential.user
-                let body = [
-                    "provider": "apple",
-                    "providerId": providerId,
-                    "name": name
-                ]
-                let email = credential.email ?? "이메일 없음"
+                    let providerId = credential.user
+                    let name = credential.fullName?.givenName
+                    let email = credential.email
 
-                print("✅ 애플 로그인 성공 → \(name), \(email)")
+                    // 이름/이메일이 제공될 경우에만 저장
+                    if let name = name {
+                        UserDefaults.standard.set(name, forKey: "userName")
+                    }
+                    if let email = email {
+                        UserDefaults.standard.set(email, forKey: "userEmail")
+                    }
+
+                    // 저장된 값을 fallback으로 사용
+                    let savedName = name ?? UserDefaults.standard.string(forKey: "userName") ?? "이름 없음"
+                    let savedEmail = email ?? UserDefaults.standard.string(forKey: "userEmail") ?? "이메일 없음"
+
+                    let body = [
+                        "provider": "apple",
+                        "providerId": providerId,
+                        "name": savedName,
+                        "email": savedEmail
+                    ]
+                    // 서버로 전송 또는 UI에 사용
+                
+//            if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
+//                let name = credential.fullName?.givenName ?? "이름 없음"
+//                let providerId = credential.user
+//                let body = [
+//                    "provider": "apple",
+//                    "providerId": providerId,
+//                    "name": name
+//                ]
+//                let email = credential.email ?? "이메일 없음"
+//                
+                
+
+                print("✅ 애플 로그인 성공 → \(savedName), \(savedEmail)")
 
                 // 필요한 경우 서버 전송 로직 추가 가능
                 // sendAppleTokenToBackend(credential)
@@ -252,7 +279,8 @@ func postToServerLoginEndpoint(body: [String: Any], completion: @escaping (User)
     }
 
     // MARK: - 화면 전환
-    func navigateToMain(user: User) {
+func navigateToMain(user: User) {
+    DispatchQueue.main.async {
         let mainView = MainScreenView(user: user)
         let mainVC = UIHostingController(rootView: mainView)
 
@@ -260,8 +288,22 @@ func postToServerLoginEndpoint(body: [String: Any], completion: @escaping (User)
            let window = windowScene.windows.first {
             window.rootViewController = mainVC
             window.makeKeyAndVisible()
+        } else {
+            print("❌ 윈도우 전환 실패: UIWindowScene을 찾을 수 없습니다.")
         }
     }
+}
+
+//    func navigateToMain(user: User) {
+//        let mainView = MainScreenView(user: user)
+//        let mainVC = UIHostingController(rootView: mainView)
+//
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let window = windowScene.windows.first {
+//            window.rootViewController = mainVC
+//            window.makeKeyAndVisible()
+//        }
+//    }
 
     
     

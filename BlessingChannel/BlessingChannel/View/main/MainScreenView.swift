@@ -14,15 +14,14 @@ struct MainScreenView: View {
             VStack(spacing: 0) {
                 
                 // ✅ 알림 문구 삽입
-                    Text("""
-                    ※ 광고 시청은 보상을 제공하지 않습니다.
-                    ※ 광고 수익은 운영비를 제외하고 모두 기부에 사용됩니다.
-                    """)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                    .padding(.top, 8)
+//                    Text("""
+//                    ※ 광고 수익은 운영비를 제외하고 모두 기부에 사용됩니다.
+//                    """)
+//                    .font(.caption)
+//                    .foregroundColor(.gray)
+//                    .multilineTextAlignment(.center)
+//                    .padding(.horizontal)
+//                    .padding(.top, 8)
                 
                 
                 HStack {
@@ -54,56 +53,76 @@ struct MainScreenView: View {
                 }
                 .padding()
 
-                Button("정보 보고 기부에 참여하기") {
-                    if !canWatchRewardedAd() {
-                        print("❗ 오늘 보상형 광고 시청 횟수 초과 (최대 15회)")
-                        return
+                
+                
+                
+                // 기존 광고 버튼 및 ScrollView 영역 주석 처리 대신:
+                GeometryReader { geometry in
+                    VStack {
+                        Spacer().frame(height: 30)
+
+                        Text("광고를 준비 중입니다.")
+                            .font(.callout)
+                            .foregroundColor(.gray)
+                            .padding()
+
+                        Spacer()
+                            .frame(height: geometry.size.height * 0.3)  // 화면 높이의 30%를 빈 공간으로 확보
                     }
-                    if let rootVC = UIApplication.shared.windows.first?.rootViewController {
-                        adManager.showAd(from: rootVC) {
-                            recordRewardedAdWatched()
-                            reportRewardedAdWatched()
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.brown)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding(.horizontal)
-
-                if !adManager.isAdLoaded {
-                    ProgressView("광고 로딩 중...")
-                        .onAppear { adManager.loadAd() }
+                    .frame(maxWidth: .infinity)
                 }
 
-                ScrollView {
-                    VStack(spacing: 10) {
-                        ForEach(0..<4) { _ in
-                            BannerAdView()
-                                .frame(height: 50)
-                                .cornerRadius(8)
-                        }
 
-                        Text("필요한 정보는 당신에게, 따뜻한 나눔은 아이들에게.")
-                            .font(.footnote)
-                            .multilineTextAlignment(.center)
-                            .padding(.top, 10)
-                            .foregroundColor(.brown)
-                    }
-                    .padding()
-                }
-                .onAppear {
-                    if !user.isGuest {
-                            registerAndFetchSummary(userId: user.name)
-                            reportBannerViewAndFetchDonations()
-                        } else {
-                            print("👤 게스트로 진입 — 유저 요약 등록/포인트 적립 생략")
-                        }
-
-                        fetchTotalDonation()  // ✅ 이건 무조건 실행
-                }
+//                Button("정보 보고 기부에 참여하기") {
+//                    if !canWatchRewardedAd() {
+//                        print("❗ 오늘 보상형 광고 시청 횟수 초과 (최대 15회)")
+//                        return
+//                    }
+//                    if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+//                        adManager.showAd(from: rootVC) {
+//                            recordRewardedAdWatched()
+//                            reportRewardedAdWatched()
+//                        }
+//                    }
+//                }
+//                .frame(maxWidth: .infinity)
+//                .padding()
+//                .background(Color.brown)
+//                .foregroundColor(.white)
+//                .cornerRadius(8)
+//                .padding(.horizontal)
+//
+//                if !adManager.isAdLoaded {
+//                    ProgressView("광고 로딩 중...")
+//                        .onAppear { adManager.loadAd() }
+//                }
+//
+//                ScrollView {
+//                    VStack(spacing: 10) {
+//                        ForEach(0..<4) { _ in
+//                            BannerAdView()
+//                                .frame(height: 50)
+//                                .cornerRadius(8)
+//                        }
+//
+//                        Text("필요한 정보는 당신에게, 따뜻한 나눔은 아이들에게.")
+//                            .font(.footnote)
+//                            .multilineTextAlignment(.center)
+//                            .padding(.top, 10)
+//                            .foregroundColor(.brown)
+//                    }
+//                    .padding()
+//                }
+//                .onAppear {
+//                    if !user.isGuest {
+//                            registerAndFetchSummary(userId: user.name)
+//                            reportBannerViewAndFetchDonations()
+//                        } else {
+//                            print("👤 게스트로 진입 — 유저 요약 등록/포인트 적립 생략")
+//                        }
+//
+//                        fetchTotalDonation()  // ✅ 이건 무조건 실행
+//                }
 
                 Button("게시판") {
                     
@@ -146,7 +165,7 @@ struct MainScreenView: View {
                             let vc = UIHostingController(rootView: myPageView)
                             UIApplication.shared.windows.first?.rootViewController?.present(vc, animated: true)
                         }
-                        Button("모금 사용처") { print("모금 사용처 이동") }
+//                        Button("모금 사용처") { print("모금 사용처 이동") }
                         Button("로그아웃") {
                             GIDSignIn.sharedInstance.signOut()
                             UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: LoginView())
@@ -273,7 +292,7 @@ struct MainScreenView: View {
 
 struct API {
     static let baseURL: String = {
-        #if DEBUG
+        #if !DEBUG
         return "http://127.0.0.1:8080"
         #else
         return "http://3.36.86.32:8080"

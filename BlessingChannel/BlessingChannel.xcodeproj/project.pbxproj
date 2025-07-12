@@ -35,6 +35,7 @@
 		0AA77C0B2DE342150014B7AA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0A2DE342150014B7AA /* LoginView.swift */; };
 		0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0D2DE342420014B7AA /* Color+Extension.swift */; };
 		0AA77C102DE342590014B7AA /* BlessingChannelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */; };
+		0AF3993C2E22519B00BE3F58 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AF3993B2E22519B00BE3F58 /* Config.plist */; };
 		0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */; };
 		0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */; };
 		0AF74C932DF3F29C00D3B1AB /* BoardPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */; };
@@ -97,6 +98,7 @@
 		0AA77C0A2DE342150014B7AA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0AA77C0D2DE342420014B7AA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlessingChannelApp.swift; sourceTree = "<group>"; };
+		0AF3993B2E22519B00BE3F58 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedUser.swift; sourceTree = "<group>"; };
 		0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 		0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPost.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				0AA77BE72DE3416C0014B7AA /* Info.plist */,
 				0AA77C0F2DE342590014B7AA /* BlessingChannelApp.swift */,
 				0A44E0472DE4A13300E240CA /* AppDelegate.swift */,
+				0AF3993B2E22519B00BE3F58 /* Config.plist */,
 			);
 			path = BlessingChannel;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AA77BE62DE3416C0014B7AA /* LaunchScreen.storyboard in Resources */,
+				0AF3993C2E22519B00BE3F58 /* Config.plist in Resources */,
 				0AA77BE32DE3416C0014B7AA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -836,7 +840,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BlessingChannel/BlessingChannel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9KDUS59PR5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=*]" = arm64;
@@ -851,7 +855,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blessing.channel.BlessingChannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
@@ -869,7 +873,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BlessingChannel/BlessingChannel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9KDUS59PR5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				EXCLUDED_ARCHS = "";
@@ -885,7 +889,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blessing.channel.BlessingChannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;

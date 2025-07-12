@@ -44,7 +44,7 @@ struct MyPageView: View {
                 .foregroundColor(.brown)
             
             // 🔹 포인트 및 누적 수익
-            Text("현재 포인트: \(donation)P")
+            Text("기여 내역: \(donation)❤️")
                 .font(.subheadline)
                 .foregroundColor(.black)
                 
@@ -61,12 +61,12 @@ struct MyPageView: View {
             
             // 🔹 랭킹 보드
             VStack(alignment: .leading, spacing: 4) {
-                Text("🏆 랭킹 보드")
+                Text("참여 기록 순위")
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                 ForEach(topUsers.indices, id: \.self) { idx in
                     let user = topUsers[idx]
-                    Text("\(idx + 1)위 - \(user.name): \(user.point)P")
+                    Text("\(idx + 1)위 - \(user.name): \(user.point)❤️")
                 }
             }
             .padding(.top)
