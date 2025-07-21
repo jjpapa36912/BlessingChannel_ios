@@ -18,6 +18,10 @@ struct MainScreenView: View {
                 helperOverlayView(for: type)
             }
         }
+        // ✅ 하단 배너 광고 고정
+            BannerAdView()
+                .frame(height: 50)
+                .background(Color.clear)
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
     }
 
