@@ -16,18 +16,34 @@ class SpeechRecognizer: ObservableObject {
 
     @Published var recognizedText: String = ""
 
+//    func startRecording() {
+//        SFSpeechRecognizer.requestAuthorization { authStatus in
+//            guard authStatus == .authorized else {
+//                print("Speech recognition not authorized")
+//                return
+//            }
+//
+//            DispatchQueue.main.async {
+//                self.startSession()
+//            }
+//        }
+//    }
     func startRecording() {
         SFSpeechRecognizer.requestAuthorization { authStatus in
-            guard authStatus == .authorized else {
-                print("Speech recognition not authorized")
-                return
-            }
-
             DispatchQueue.main.async {
-                self.startSession()
+                switch authStatus {
+                case .authorized:
+                    self.startSession()
+                case .denied, .restricted, .notDetermined:
+                    self.recognizedText = "⚠️ 음성 인식 권한이 필요합니다. 설정에서 마이크 접근을 허용해주세요."
+                    print("❌ 권한 없음")
+                @unknown default:
+                    self.recognizedText = "⚠️ 알 수 없는 권한 오류 발생"
+                }
             }
         }
     }
+
 
     private func startSession() {
         if audioEngine.isRunning {

@@ -41,6 +41,7 @@
 		0AF399442E2260D600BE3F58 /* YouTubeHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF399432E2260D600BE3F58 /* YouTubeHelperView.swift */; };
 		0AF399472E2262EC00BE3F58 /* CoupangHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF399462E2262EC00BE3F58 /* CoupangHelperView.swift */; };
 		0AF3994A2E2263DE00BE3F58 /* KakaoHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF399492E2263DE00BE3F58 /* KakaoHelperView.swift */; };
+		0AF3994E2E29B41700BE3F58 /* UniversalHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF3994D2E29B41700BE3F58 /* UniversalHelperView.swift */; };
 		0AF74C8C2DF1DE3400D3B1AB /* RankedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */; };
 		0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */; };
 		0AF74C932DF3F29C00D3B1AB /* BoardPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */; };
@@ -109,6 +110,7 @@
 		0AF399432E2260D600BE3F58 /* YouTubeHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeHelperView.swift; sourceTree = "<group>"; };
 		0AF399462E2262EC00BE3F58 /* CoupangHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangHelperView.swift; sourceTree = "<group>"; };
 		0AF399492E2263DE00BE3F58 /* KakaoHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoHelperView.swift; sourceTree = "<group>"; };
+		0AF3994D2E29B41700BE3F58 /* UniversalHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalHelperView.swift; sourceTree = "<group>"; };
 		0AF74C8B2DF1DE3400D3B1AB /* RankedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedUser.swift; sourceTree = "<group>"; };
 		0AF74C902DF3F27F00D3B1AB /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 		0AF74C922DF3F29C00D3B1AB /* BoardPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPost.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				0A44E0512DE4A22E00E240CA /* NavigationBarView.swift */,
 				0A0E958F2DE5F232007DD546 /* KakaoLoginView.swift */,
 				0A02C11D2DE94D1B00A03F04 /* NaverLoginDelegate.swift */,
+				0AF3994D2E29B41700BE3F58 /* UniversalHelperView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -579,9 +582,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -596,9 +603,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -635,9 +646,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel-BlessingChannelUITests/Pods-BlessingChannel-BlessingChannelUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -652,9 +667,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BlessingChannel/Pods-BlessingChannel-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -676,6 +695,7 @@
 				0A69079B2DEE86ED003F748C /* MyPageView.swift in Sources */,
 				0A6E23CA2DF5D185005D3136 /* PostCardView.swift in Sources */,
 				0AF399472E2262EC00BE3F58 /* CoupangHelperView.swift in Sources */,
+				0AF3994E2E29B41700BE3F58 /* UniversalHelperView.swift in Sources */,
 				0AA77C0E2DE342420014B7AA /* Color+Extension.swift in Sources */,
 				0AF74C912DF3F27F00D3B1AB /* BoardViewModel.swift in Sources */,
 				0A6907992DEC839F003F748C /* BannerAdView.swift in Sources */,
@@ -891,7 +911,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blessing.channel.BlessingChannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
@@ -925,7 +945,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blessing.channel.BlessingChannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;

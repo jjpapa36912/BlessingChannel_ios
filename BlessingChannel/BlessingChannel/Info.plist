@@ -30,7 +30,7 @@
     <dict>
         <key>NSExceptionDomains</key>
         <dict>
-            <key>3.36.86.32</key>
+            <key>13.124.208.108</key>
 <!--            <key>127.0.0.1</key>-->
             <dict>
                 <key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -40,6 +40,18 @@
             </dict>
         </dict>
     </dict>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>kakaolink</string>
+        <string>youtube</string>
+    </array>
+    
+    <key>NSMicrophoneUsageDescription</key>
+    <string>음성 명령을 인식하여 예약 검색을 수행합니다. 예: "세종시 서울현병원 예약하고 싶어"라고 말하면 예약 페이지를 안내해드립니다.</string>
+
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>음성 명령을 분석하여 예약을 도와드리기 위해 사용됩니다.</string>
+
 
 
 <!--    <key>NSAppTransportSecurity</key>-->
